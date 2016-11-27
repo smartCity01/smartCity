@@ -1,0 +1,30 @@
+{
+   "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch server with browsersync",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/test/node_modules/lite-server/bin/lite-server",
+      "stopOnEntry": false,
+      "args": [],
+      "cwd": "${workspaceRoot}/test",
+      "runtimeExecutable": null,
+      "runtimeArgs": [
+        "--nolazy"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "internalConsole",
+      "sourceMaps": false,
+      "outFiles": []
+    },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Process",
+            "port": 5858
+        }
+    ]
+}
