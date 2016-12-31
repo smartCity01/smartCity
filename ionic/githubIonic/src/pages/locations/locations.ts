@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
-
+import { Geolocation } from 'ionic-native';
 
 @Component({
   selector: 'locations',
   templateUrl: 'locations.html'
 })
 export class LocationsPage {
-  lat: number = 45.2545229;
-  lng: number = -75.7275567;
+  lat: number;
+  lng: number;
   constructor() {
-
+    Geolocation.getCurrentPosition().then(pos => {
+      this.lat = pos.coords.latitude;
+      this.lng = pos.coords.longitude;
+    }),
+      err => {
+        //do nothing
+      }
   }
 }

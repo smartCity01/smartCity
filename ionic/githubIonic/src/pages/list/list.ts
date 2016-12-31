@@ -36,4 +36,18 @@ export class ListPage {
       item: item
     });
   }
+
+  doRefresh(refresher) {
+    console.log(this.items);
+    this.items.push({
+      title: 'event ' + (this.items.length + 1),
+      note: 'This is event #' + (this.items.length + 1),
+      icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+    });
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
 }

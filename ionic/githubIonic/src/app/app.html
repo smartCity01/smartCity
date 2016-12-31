@@ -1,7 +1,7 @@
-<ion-nav [root]="rootPage" swipeBackEnabled="false">
+<ion-nav #content [root]="rootPage" swipeBackEnabled="false">
 </ion-nav>
 <ion-tabs>
   <ion-tab tabIcon="home" [root]="tab1" tabBadge="{{notification}}"></ion-tab>
   <ion-tab tabIcon="locate" [root]="tab2" tabBadge="{{notification}}" tabBadgeStyle="danger"></ion-tab>
   <ion-tab tabIcon="star" [root]="tab3"></ion-tab>
-</ion-tabs>`
+</ion-tabs>

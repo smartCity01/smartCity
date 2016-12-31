@@ -1,8 +1,10 @@
+import { LoginPage } from './../pages/login/login';
+import { AccountService } from './../util/account.service';
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav } from 'ionic-angular';
+import { Platform, MenuController, Nav, ModalController } from 'ionic-angular';
 
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar, Splashscreen, SecureStorage } from 'ionic-native';
 
 import { LocationsPage } from '../pages/locations/locations';
 import { ListPage } from '../pages/list/list';
@@ -13,21 +15,24 @@ import { ListPage } from '../pages/list/list';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
-  // make HelloIonicPage the root (or first) page
+  secureStorage: SecureStorage;
   rootPage: any = LocationsPage;
   pages: Array<{ title: string, component: any }>;
   tab1: any;
   tab2: any;
   tab3: any;
   notification: number = 3;
+  accountService: AccountService;
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public menu: MenuController,
+    public modalCtrl: ModalController
   ) {
     this.initializeApp();
+    this.secureStorage = new SecureStorage();
+    this.accountService = new AccountService(this.secureStorage);
+    this.displayLoginPageIfApplicable();
 
-    // set our app's pages
     this.pages = [
       { title: 'Hello Ionic', component: LocationsPage },
       { title: 'My First List', component: ListPage }
@@ -39,11 +44,21 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      this.secureStorage.create('my_store')
+        .then(
+        () => console.log('Storage is ready!'),
+        error => console.log(error)
+        );
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
+  }
+
+  displayLoginPageIfApplicable() {
+    if (!this.accountService.isLoggedIn()) {
+      let modal = this.modalCtrl.create(LoginPage);
+      modal.present();
+    }
   }
 
 }

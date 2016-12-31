@@ -1,3 +1,5 @@
+import { SignupPage } from './../pages/signup/signup';
+import { LoginPage } from './../pages/login/login';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AgmCoreModule } from 'angular2-google-maps/core';
@@ -12,6 +14,8 @@ import { ListPage } from '../pages/list/list';
     LocationsPage,
     EventDetailsPage,
     ListPage,
+    LoginPage,
+    SignupPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -24,7 +28,9 @@ import { ListPage } from '../pages/list/list';
     MyApp,
     LocationsPage,
     EventDetailsPage,
-    ListPage
+    ListPage,
+    LoginPage,
+    SignupPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
