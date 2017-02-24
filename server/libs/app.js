@@ -28,7 +28,7 @@ app.use('/', api);
 app.use('/api', api);
 app.use('/api/users', users);
 app.use('/api/articles', articles);
-app.use('api/events', events);
+app.use('/api/events', events);
 app.use('/api/oauth/token', oauth2.token);
 
 // catch 404 and forward to error handler

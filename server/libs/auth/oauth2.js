@@ -11,6 +11,7 @@ var db = require(libs + 'db/mongoose');
 var User = require(libs + 'model/user');
 var AccessToken = require(libs + 'model/accessToken');
 var RefreshToken = require(libs + 'model/refreshToken');
+var Client = require(libs + 'model/client');
 
 // create OAuth 2.0 server
 var aserver = oauth2orize.createServer();
@@ -57,7 +58,25 @@ var generateTokens = function (data, done) {
     	});
     });
 };
-//TODO: implement signup client credentials exchange with specific signup user Id and use bearer strategy to authenticate
+//Exchange client id and secret for token
+aserver.exchange(oauth2orize.exchange.clientCredentials(function(client, scope, done) {
+  Client.findOne({clientId: client.clientId}, function(err, code) {
+    if (err) { return done(err); }
+    if (client.clientSecret !== code.clientSecret) { return done(null, false); }
+	User.findOne({username: 'korede'},function(err,user){
+		if (err) { 
+			return done(err); 
+		}
+		var model = { 
+			userId: user.userId, 
+			clientId: client.clientId 
+		};
+		generateTokens(model, done);
+	});
+
+  });
+}));
+
 
 // Exchange username & password for access token.
 aserver.exchange(oauth2orize.exchange.password(function(client, username, password, email, scope, done) {
@@ -66,13 +85,8 @@ aserver.exchange(oauth2orize.exchange.password(function(client, username, passwo
 		if (err) { 
 			return done(err); 
 		}
-
-		if(user && email){
-			log.info('here');
-			return done('Username Already Taken');
-		}
 		
-	if ((!user || !user.checkPassword(password)) && !email) {
+	if (!user || !user.checkPassword(password)) {
 			return done(null, false);
 		}
 

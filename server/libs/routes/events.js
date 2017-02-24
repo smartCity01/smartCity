@@ -29,7 +29,7 @@ router.post('/', passport.authenticate('bearer', { session: false }), function(r
 	
 	var event = new Event({
 		title: req.body.title,
-		host: req.body.host,
+		host: req.user.id,
 		description: req.body.description,
 		location: req.body.location
 	});

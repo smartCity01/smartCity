@@ -13,15 +13,19 @@ var Event = new Schema({
     location: { 
         longitude: {
             type: Number, 
-            required: true 
+            required: false 
         }, latitude: {
             type: Number, 
-            required: true
+            required: false
         },
     },
     description: {
         type: String,
         required: true
+    },
+    imageUrl:{
+        type:String,
+        required: false
     }
 });
 

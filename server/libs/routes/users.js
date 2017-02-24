@@ -3,6 +3,7 @@ var passport = require('passport');
 var router = express.Router();
 var libs = process.cwd() + '/libs/';
 var User = require(libs + 'model/user');
+var log = require(libs + 'log')(module);
 
 var db = require(libs + 'db/mongoose');
 
@@ -33,7 +34,21 @@ function(req,res){
         if(!err) {
             log.info("New user - %s:%s", user.username, user.password);
         }else {
-            return log.error(err);
+            log.info(err.code);
+            if(err.code === 11000) {
+				res.statusCode = 405;
+				res.json({ 
+					error: ' Username Already Exists' 
+				});
+			} else {
+				res.statusCode = 500;
+				
+				log.error('Internal error(%d): %s', res.statusCode, err.message);
+				
+				res.json({ 
+					error: 'Server error' 
+				});
+			}
         }
     });
 });
