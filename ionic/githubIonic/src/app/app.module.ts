@@ -7,7 +7,7 @@ import { MyApp } from './app.component';
 import { LocationsPage } from '../pages/locations/locations';
 import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ListPage } from '../pages/list/list';
-
+import { UserPage } from '../pages/userpage/userpage';
 @NgModule({
   declarations: [
     MyApp,
@@ -15,6 +15,7 @@ import { ListPage } from '../pages/list/list';
     EventDetailsPage,
     ListPage,
     LoginPage,
+    UserPage,
     SignupPage
   ],
   imports: [
@@ -30,6 +31,7 @@ import { ListPage } from '../pages/list/list';
     EventDetailsPage,
     ListPage,
     LoginPage,
+    UserPage,
     SignupPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
