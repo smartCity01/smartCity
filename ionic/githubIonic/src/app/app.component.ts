@@ -8,7 +8,7 @@ import { StatusBar, Splashscreen, SecureStorage } from 'ionic-native';
 
 import { LocationsPage } from '../pages/locations/locations';
 import { ListPage } from '../pages/list/list';
-
+import { UserPage } from '../pages/userpage/userpage';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,6 +20,7 @@ export class MyApp {
   tab1: any;
   tab2: any;
   tab3: any;
+  tab4: any;
   notification: number = 3;
   accountService: AccountService;
   mode = 'Observable'; //T
@@ -35,11 +36,13 @@ export class MyApp {
 
     this.pages = [
       { component: LocationsPage },
-      { component: ListPage }
+      { component: ListPage },
+      { component:  UserPage}
     ];
     this.tab1 = this.pages[1].component;
     this.tab2 = this.pages[0].component;
     this.tab3 = this.pages[0].component;
+    this.tab4 = this.pages[2].component;
   }
 
   initializeApp() {

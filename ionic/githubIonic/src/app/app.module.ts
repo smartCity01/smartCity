@@ -16,6 +16,8 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/users.service';
 
+import { UserPage } from '../pages/userpage/userpage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -23,8 +25,9 @@ import { UserService } from '../services/users.service';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    SignupPage,
-    NewEventPage
+    NewEventPage,
+    UserPage,
+    SignupPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -41,8 +44,9 @@ import { UserService } from '../services/users.service';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    SignupPage,
-    NewEventPage
+    NewEventPage,
+    UserPage,
+    SignupPage
   ],
   //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, AccountService] //T
