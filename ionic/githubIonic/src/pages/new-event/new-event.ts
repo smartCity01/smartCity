@@ -6,23 +6,24 @@ import { ViewController, ModalController } from 'ionic-angular';
 
 @Component({
     selector: 'new-event',
-    template: 'new-event.html'
+    templateUrl: 'new-event.html'
 })
 
-export class NewEventPage{
-     title: String;
-     time: number;
-     endTime: number;
-     venue: String;
-    constructor(public viewCtrl: ViewController, public modalCtrl: ModalController) {}
+export class NewEventPage {
+    title: String;
+    time: number;
+    endTime: number;
+    venue: String;
 
-    
-   create(){
-       console.log(this.title);
-   }
+    constructor(public viewCtrl: ViewController, public modalCtrl: ModalController) { }
 
-     
-  dismiss() {
+
+    create() {
+        console.log(this.title);
+    }
+
+
+    dismiss() {
         this.viewCtrl.dismiss();
     }
 
