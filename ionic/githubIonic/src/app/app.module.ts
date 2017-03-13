@@ -1,3 +1,4 @@
+import { NewEventPage } from './../pages/new-event/new-event';
 import { SignupPage } from './../pages/signup/signup';
 import { LoginPage } from './../pages/login/login';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -15,7 +16,8 @@ import { ListPage } from '../pages/list/list';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    NewEventPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -30,7 +32,8 @@ import { ListPage } from '../pages/list/list';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    NewEventPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
