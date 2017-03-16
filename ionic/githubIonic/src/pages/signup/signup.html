@@ -20,11 +20,15 @@
         </ion-item>
         <ion-item>
             <ion-label fixed>Username</ion-label>
-            <ion-input type="text" value=""></ion-input>
+            <ion-input type="text" value="" [(ngModel)]="username"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label fixed>Email</ion-label>
+            <ion-input type="email" value="" [(ngModel)]="email"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label stacked>Password</ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label stacked>Confirm Password</ion-label>
@@ -32,6 +36,6 @@
         </ion-item>
     </ion-list>
     <div padding>
-        <button ion-button color="dark" outline>Sign Up</button>
+        <button ion-button color="dark" (click)="signUp()" outline>Sign Up</button>
     </div>
 </ion-content>

@@ -15,7 +15,8 @@ var oauth2 = require('./auth/oauth2');
 var api = require('./routes/api');
 var users = require('./routes/users');
 var articles = require('./routes/articles');
-var events = require('./routes/events')
+var events = require('./routes/events');
+var oauth = require('./routes/oauth');
 var app = express();
 
 app.use(bodyParser.json());
@@ -29,7 +30,7 @@ app.use('/api', api);
 app.use('/api/users', users);
 app.use('/api/articles', articles);
 app.use('/api/events', events);
-app.use('/api/oauth/token', oauth2.token);
+app.use('/api/oauth/', oauth);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

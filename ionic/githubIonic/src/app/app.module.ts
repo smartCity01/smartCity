@@ -7,6 +7,12 @@ import { MyApp } from './app.component';
 import { LocationsPage } from '../pages/locations/locations';
 import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ListPage } from '../pages/list/list';
+import { HttpModule, JsonpModule } from '@angular/http'; //T 
+
+// T- Imports for loading and configuring the in-memory web api 
+//import { InMemoryWebApiModule} from 'angular-in-memory-web-api';// <?
+import { AuthService} from '../services/auth.service';
+import { UserService} from '../services/users.service';
 
 @NgModule({
   declarations: [
@@ -15,10 +21,13 @@ import { ListPage } from '../pages/list/list';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+   
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+     HttpModule, //T 
+    //InMemoryWebApiModule.forRoot(UsersService), //T < ?? 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAERgyQu6HKSwcPv0uwOGOvsIbYQKfsn5Y'
     })
@@ -32,6 +41,8 @@ import { ListPage } from '../pages/list/list';
     LoginPage,
     SignupPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
+  //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler},AuthService, UserService ] //T
+  
 })
 export class AppModule { }

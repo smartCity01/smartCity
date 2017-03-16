@@ -7,6 +7,23 @@ var log = require(libs + 'log')(module);
 
 var db = require(libs + 'db/mongoose');
 
+router.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    log.info(req.method);
+    //intercepts OPTIONS method
+    if ('OPTIONS' === req.method) {
+      //respond with 200
+      res.send(200);
+    }
+    else {
+    //move on
+      next();
+    }
+});
+
 router.get('/info', passport.authenticate('bearer', { session: false }),
     function(req, res) {
         // req.authInfo is set using the `info` argument supplied by

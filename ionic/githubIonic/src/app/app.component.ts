@@ -13,7 +13,7 @@ import { ListPage } from '../pages/list/list';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp { 
   @ViewChild(Nav) nav: Nav;
   secureStorage: SecureStorage;
   rootPage: any = LocationsPage;
@@ -23,6 +23,7 @@ export class MyApp {
   tab3: any;
   notification: number = 3;
   accountService: AccountService;
+  mode = 'Observable'; //T
   constructor(
     public platform: Platform,
     public menu: MenuController,
