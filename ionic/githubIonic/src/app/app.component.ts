@@ -13,7 +13,7 @@ import { ProfilePage } from '../pages/profile/profile';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp { 
   @ViewChild(Nav) nav: Nav;
   secureStorage: SecureStorage;
   pages: Array<{ component: any }>;
@@ -23,6 +23,7 @@ export class MyApp {
   tab4: any;
   notification: number = 3;
   accountService: AccountService;
+  mode = 'Observable'; //T
   constructor(
     public platform: Platform,
     public menu: MenuController,

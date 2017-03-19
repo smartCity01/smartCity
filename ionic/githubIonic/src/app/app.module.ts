@@ -11,6 +11,11 @@ import { LocationsPage } from '../pages/locations/locations';
 import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ListPage } from '../pages/list/list';
 import { ProfilePage } from '../pages/profile/profile';
+import { HttpModule, JsonpModule } from '@angular/http'; //T 
+
+// T- Imports for loading and configuring the in-memory web api 
+//import { InMemoryWebApiModule} from 'angular-in-memory-web-api';// <?
+
 @NgModule({
   declarations: [
     MyApp,
@@ -24,6 +29,8 @@ import { ProfilePage } from '../pages/profile/profile';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+     HttpModule, //T 
+    //InMemoryWebApiModule.forRoot(UsersService), //T < ?? 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAERgyQu6HKSwcPv0uwOGOvsIbYQKfsn5Y'
     })
@@ -39,6 +46,8 @@ import { ProfilePage } from '../pages/profile/profile';
     SignupPage,
     NewEventPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },UserService,AuthService]
+  //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler},AuthService, UserService ] //T
+  
 })
 export class AppModule { }
