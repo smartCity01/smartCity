@@ -1,3 +1,5 @@
+import { AuthService } from './../services/auth.service';
+import { UserService } from './../services/users.service';
 import { NewEventPage } from './../pages/new-event/new-event';
 import { SignupPage } from './../pages/signup/signup';
 import { LoginPage } from './../pages/login/login';
@@ -8,7 +10,7 @@ import { MyApp } from './app.component';
 import { LocationsPage } from '../pages/locations/locations';
 import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ListPage } from '../pages/list/list';
-import { UserPage } from '../pages/userpage/userpage';
+import { ProfilePage } from '../pages/profile/profile';
 @NgModule({
   declarations: [
     MyApp,
@@ -16,7 +18,7 @@ import { UserPage } from '../pages/userpage/userpage';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    UserPage,
+    ProfilePage,
     SignupPage,
     NewEventPage
   ],
@@ -33,10 +35,10 @@ import { UserPage } from '../pages/userpage/userpage';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    UserPage,
+    ProfilePage,
     SignupPage,
     NewEventPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },UserService,AuthService]
 })
 export class AppModule { }
