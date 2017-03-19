@@ -8,7 +8,7 @@ import { StatusBar, Splashscreen, SecureStorage } from 'ionic-native';
 
 import { LocationsPage } from '../pages/locations/locations';
 import { ListPage } from '../pages/list/list';
-import { UserPage } from '../pages/userpage/userpage';
+import { ProfilePage } from '../pages/profile/profile';
 
 @Component({
   templateUrl: 'app.html'
@@ -37,7 +37,7 @@ export class MyApp {
     this.pages = [
       { component: LocationsPage },
       { component: ListPage },
-      { component:  UserPage}
+      { component:  ProfilePage}
     ];
     this.tab1 = this.pages[1].component;
     this.tab2 = this.pages[0].component;

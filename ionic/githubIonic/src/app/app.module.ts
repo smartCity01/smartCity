@@ -1,3 +1,4 @@
+
 import { AccountService } from './../util/account.service';
 import { NewEventPage } from './../pages/new-event/new-event';
 import { SignupPage } from './../pages/signup/signup';
@@ -18,6 +19,8 @@ import { UserService } from '../services/users.service';
 
 import { UserPage } from '../pages/userpage/userpage';
 
+import { ProfilePage } from '../pages/profile/profile';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -25,9 +28,9 @@ import { UserPage } from '../pages/userpage/userpage';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    NewEventPage,
-    UserPage,
-    SignupPage
+    ProfilePage,
+    SignupPage,
+    NewEventPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -44,12 +47,10 @@ import { UserPage } from '../pages/userpage/userpage';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    NewEventPage,
-    UserPage,
-    SignupPage
+    ProfilePage,
+    SignupPage,
+    NewEventPage
   ],
-  //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, AccountService] //T
-
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, UserService, AuthService]
 })
 export class AppModule { }
