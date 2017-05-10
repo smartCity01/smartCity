@@ -16,8 +16,7 @@ import { ListPage } from '../pages/list/list';
 export class MyApp { 
   @ViewChild(Nav) nav: Nav;
   secureStorage: SecureStorage;
-  rootPage: any = LocationsPage;
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ component: any }>;
   tab1: any;
   tab2: any;
   tab3: any;
@@ -35,8 +34,8 @@ export class MyApp {
     this.displayLoginPageIfApplicable();
 
     this.pages = [
-      { title: 'Hello Ionic', component: LocationsPage },
-      { title: 'My First List', component: ListPage }
+      { component: LocationsPage },
+      { component: ListPage }
     ];
     this.tab1 = this.pages[1].component;
     this.tab2 = this.pages[0].component;
