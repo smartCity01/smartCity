@@ -16,6 +16,11 @@ export class SignupPage {
         public toastCtrl: ToastController
     ) { }
 
+
+    dismiss() {
+        this.viewCtrl.dismiss();
+    }
+
     signUp() {
         let loading = this.loadctrl.create();
         this.userService.signUp(this.username, this.password, this.email).subscribe(res => {
@@ -30,6 +35,6 @@ export class SignupPage {
                 });
                 toast.present();
             }
-        })
+        });
     }
 }
