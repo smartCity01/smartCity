@@ -32,9 +32,21 @@ export class SignupPage {
                     message: 'User was added successfully',
                     duration: 3000,
                     position: 'top'
-                });
+                })
                 toast.present();
             }
-        });
+        },
+            err => {
+                loading.dismiss();
+                if (err.status !== 200) {
+                    let toast = this.toastCtrl.create({
+                        message: err.statusText,
+                        duration: 3000,
+                        position: 'top'
+                    })
+                    toast.present();
+                    console.log(toast);
+                }
+            });
     }
 }

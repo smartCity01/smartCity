@@ -55,9 +55,8 @@ router.post('/', passport.authenticate('bearer', { session: false }),
                 log.info(err.code);
                 if (err.code === 11000) {
                     res.statusCode = 405;
-                    res.json({
-                        error: ' Username Already Exists'
-                    });
+                    res.statusMessage = ' Username Already Exists';
+                    res.end();
                 } else {
                     res.statusCode = 500;
 
