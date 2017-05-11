@@ -1,6 +1,7 @@
+import { NewEventPage } from './../new-event/new-event';
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { EventDetailsPage } from '../event-details/event-details';
 
@@ -14,7 +15,7 @@ export class ListPage {
   icons: string[];
   items: Array<{ title: string, note: string, icon: string }>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -49,5 +50,10 @@ export class ListPage {
       console.log('Async operation has ended');
       refresher.complete();
     }, 2000);
+  }
+
+  createNewEvent(){
+     let modal = this.modalCtrl.create(NewEventPage);
+        modal.present();
   }
 }

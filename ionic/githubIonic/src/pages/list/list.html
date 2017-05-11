@@ -1,10 +1,14 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Timeline</ion-title>
-  </ion-navbar>
+    <ion-toolbar>
+        <ion-title>
+            Timeline
+        </ion-title>
+        <ion-buttons start>
+          <button ion-button (click)="createNewEvent()">
+             <ion-icon name="add"></ion-icon>
+           </button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>

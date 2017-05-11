@@ -1,3 +1,4 @@
+import { NewEventPage } from './../pages/new-event/new-event';
 import { SignupPage } from './../pages/signup/signup';
 import { LoginPage } from './../pages/login/login';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -11,8 +12,8 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
 
 // T- Imports for loading and configuring the in-memory web api 
 //import { InMemoryWebApiModule} from 'angular-in-memory-web-api';// <?
-import { AuthService} from '../services/auth.service';
-import { UserService} from '../services/users.service';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/users.service';
 
 @NgModule({
   declarations: [
@@ -22,11 +23,11 @@ import { UserService} from '../services/users.service';
     ListPage,
     LoginPage,
     SignupPage,
-   
+    NewEventPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-     HttpModule, //T 
+    HttpModule, //T 
     //InMemoryWebApiModule.forRoot(UsersService), //T < ?? 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAERgyQu6HKSwcPv0uwOGOvsIbYQKfsn5Y'
@@ -39,10 +40,11 @@ import { UserService} from '../services/users.service';
     EventDetailsPage,
     ListPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    NewEventPage
   ],
   //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler},AuthService, UserService ] //T
-  
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService] //T
+
 })
 export class AppModule { }
