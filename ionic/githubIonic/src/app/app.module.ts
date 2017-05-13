@@ -15,6 +15,11 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
 
 // T- Imports for loading and configuring the in-memory web api 
 //import { InMemoryWebApiModule} from 'angular-in-memory-web-api';// <?
+<<<<<<< HEAD
+=======
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/users.service';
+>>>>>>> b736ec4ef6b11060e1c2e9a40a3a55a2a2446ea7
 
 @NgModule({
   declarations: [
@@ -29,7 +34,7 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-     HttpModule, //T 
+    HttpModule, //T 
     //InMemoryWebApiModule.forRoot(UsersService), //T < ?? 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAERgyQu6HKSwcPv0uwOGOvsIbYQKfsn5Y'
@@ -47,7 +52,7 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     NewEventPage
   ],
   //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler},AuthService, UserService ] //T
-  
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService] //T
+
 })
 export class AppModule { }
