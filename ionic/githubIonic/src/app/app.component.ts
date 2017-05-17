@@ -1,3 +1,4 @@
+import { ProfilePage } from './../pages/profile/profile';
 import { LoginPage } from './../pages/login/login';
 import { AccountService } from './../util/account.service';
 import { Component, ViewChild } from '@angular/core';
@@ -8,7 +9,7 @@ import { StatusBar, Splashscreen, SecureStorage } from 'ionic-native';
 
 import { LocationsPage } from '../pages/locations/locations';
 import { ListPage } from '../pages/list/list';
-import { ProfilePage } from '../pages/profile/profile';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -37,7 +38,8 @@ export class MyApp {
     this.pages = [
       { component: LocationsPage },
       { component: ListPage },
-      { component:  ProfilePage}
+      { component: ProfilePage}
+     
     ];
     this.tab1 = this.pages[1].component;
     this.tab2 = this.pages[0].component;

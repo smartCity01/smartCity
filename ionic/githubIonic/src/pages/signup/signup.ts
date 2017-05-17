@@ -9,20 +9,15 @@ export class SignupPage {
     username;
     password;
     email;
-<<<<<<< HEAD
+
+
+
     constructor (
-        private userService: UserService
-    ){}
-    signUp()
-    {
-        this.userService.signUp(this.username, this.password, this.email);
-=======
-    constructor(
-        private userService: UserService,
-        public viewCtrl: ViewController,
+        private userService: UserService,public viewCtrl: ViewController,
         public loadctrl: LoadingController,
         public toastCtrl: ToastController
-    ) { }
+    ){}
+
 
 
     dismiss() {
@@ -56,6 +51,6 @@ export class SignupPage {
                     console.log(toast);
                 }
             });
->>>>>>> b736ec4ef6b11060e1c2e9a40a3a55a2a2446ea7
+
     }
 }
