@@ -1,5 +1,7 @@
-
 import { AccountService } from './../util/account.service';
+import { ProfilePage } from './../pages/profile/profile';
+import { AuthService } from './../services/auth.service';
+import { UserService } from './../services/users.service';
 import { NewEventPage } from './../pages/new-event/new-event';
 import { SignupPage } from './../pages/signup/signup';
 import { LoginPage } from './../pages/login/login';
@@ -14,12 +16,7 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
 
 // T- Imports for loading and configuring the in-memory web api 
 //import { InMemoryWebApiModule} from 'angular-in-memory-web-api';// <?
-import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/users.service';
 
-import { UserPage } from '../pages/userpage/userpage';
-
-import { ProfilePage } from '../pages/profile/profile';
 
 @NgModule({
   declarations: [
@@ -46,8 +43,9 @@ import { ProfilePage } from '../pages/profile/profile';
     LocationsPage,
     EventDetailsPage,
     ListPage,
-    LoginPage,
     ProfilePage,
+    LoginPage,
+
     SignupPage,
     NewEventPage
   ],
