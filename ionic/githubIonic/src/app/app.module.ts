@@ -1,4 +1,5 @@
 import { AccountService } from './../util/account.service';
+import { EventService } from './../services/event.service';
 import { ProfilePage } from './../pages/profile/profile';
 import { AuthService } from './../services/auth.service';
 import { UserService } from './../services/users.service';
@@ -25,7 +26,11 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     EventDetailsPage,
     ListPage,
     LoginPage,
+<<<<<<< HEAD
     ProfilePage,
+=======
+    ProfilePage,
+>>>>>>> updated event service with createEvent method
     SignupPage,
     NewEventPage
   ],
@@ -45,10 +50,15 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     ListPage,
     ProfilePage,
     LoginPage,
-
     SignupPage,
     NewEventPage
   ],
+<<<<<<< HEAD
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, UserService, AuthService]
+=======
+  //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, EventService] //T
+
+>>>>>>> updated event service with createEvent method
 })
 export class AppModule { }
