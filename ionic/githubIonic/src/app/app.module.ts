@@ -1,3 +1,4 @@
+import { EventService } from './../services/event.service';
 import { ProfilePage } from './../pages/profile/profile';
 import { AuthService } from './../services/auth.service';
 import { UserService } from './../services/users.service';
@@ -11,7 +12,6 @@ import { MyApp } from './app.component';
 import { LocationsPage } from '../pages/locations/locations';
 import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ListPage } from '../pages/list/list';
-
 import { HttpModule, JsonpModule } from '@angular/http'; //T 
 
 // T- Imports for loading and configuring the in-memory web api 
@@ -25,8 +25,7 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     EventDetailsPage,
     ListPage,
     LoginPage,
-    ProfilePage,
-   
+    ProfilePage,   
     SignupPage,
     NewEventPage
   ],
@@ -46,12 +45,11 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     ListPage,
     ProfilePage,
     LoginPage,
-
     SignupPage,
     NewEventPage
   ],
   //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService] //T
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, EventService] //T
 
 })
 export class AppModule { }
