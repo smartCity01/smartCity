@@ -14,20 +14,21 @@ var RefreshToken = require(libs + 'model/refreshToken');
 
 passport.use(new BasicStrategy(
     function (username, password, done) {
-        Client.findOne({ clientId: username }, function (err, client) {
+        User.findOne({ username: username }, function (err, user) {
+            console.log(user);
             if (err) {
                 return done(err);
             }
 
-            if (!client) {
+            if (!user) {
                 return done(null, false);
             }
 
-            if (client.clientSecret !== password) {
+            if (!user.checkPassword(password)) {
                 return done(null, false);
             }
 
-            return done(null, client);
+            return done(null, user);
         });
     }
 ));
@@ -47,6 +48,7 @@ passport.use(new ClientPasswordStrategy(
                 return done(null, false);
             }
 
+            console.log('client password verification')
             return done(null, client);
         });
     }
