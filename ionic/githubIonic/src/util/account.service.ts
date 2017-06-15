@@ -1,6 +1,14 @@
 import { SecureStorage } from 'ionic-native';
 export class AccountService {
-    constructor(private secureStorage: SecureStorage) { }
+    secureStorage: SecureStorage;
+    constructor() {
+        this.secureStorage = new SecureStorage();
+        this.secureStorage.create('my_store')
+            .then(
+            () => console.log('Storage is ready!'),
+            error => console.log(error)
+            );
+    }
 
     isLoggedIn(): boolean {
         console.log(this.secureStorage);

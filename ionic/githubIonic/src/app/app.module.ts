@@ -1,3 +1,4 @@
+import { AccountService } from './../util/account.service';
 import { NewEventPage } from './../pages/new-event/new-event';
 import { SignupPage } from './../pages/signup/signup';
 import { LoginPage } from './../pages/login/login';
@@ -44,7 +45,7 @@ import { UserService } from '../services/users.service';
     NewEventPage
   ],
   //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService] //T
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, AccountService] //T
 
 })
 export class AppModule { }
