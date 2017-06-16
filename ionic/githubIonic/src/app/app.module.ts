@@ -50,7 +50,7 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     NewEventPage
   ],
   //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, EventService] //T
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, AccountService, EventService] //T
 
 })
 export class AppModule { }

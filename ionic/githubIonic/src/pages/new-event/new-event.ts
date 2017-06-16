@@ -2,7 +2,7 @@ import { Event } from './../../model/event';
 import { EventService } from './../../services/event.service';
 //mport { EventDetailsPage } from './../event-details/event-details';
 import { Component } from '@angular/core';
-import { ViewController, ModalController } from 'ionic-angular';
+import { ViewController, ModalController, ToastController } from 'ionic-angular';
 
 
 
@@ -16,24 +16,30 @@ export class NewEventPage {
     time: number;
     endTime: number;
     venue: String;
-    success:"Event was created successfully" 
-    error:"Error! unable to create event"
-    constructor(public eventService:EventService, 
-    public viewCtrl: ViewController, public modalCtrl: ModalController) { }
+    success = "Event was created successfully";
+    error = "Error! unable to create event";
+    constructor(
+        public eventService: EventService,
+        public viewCtrl: ViewController,
+        public modalCtrl: ModalController,
+        public toastCtrl: ToastController
+    ) { }
 
-   //method to create event
+    //method to create event
     create() {
-       this.eventService.createEvent(this.title, this.time, this.endTime,this.venue).subscribe(res => {
-
-    console.log(this.success);
-          
-               },
-    
+        this.eventService.createEvent(this.title, this.time, this.endTime, this.venue).subscribe(res => {
+            this.viewCtrl.dismiss();
+            let toast = this.toastCtrl.create({
+                message: 'New Event Created',
+                duration: 3000,
+                position: 'top'
+            })
+            toast.present();
+        },
             err => {
-            
-                    console.log(this.error);
-                }
-            ); 
+                console.log(this.error);
+            }
+        );
     }
 
 
