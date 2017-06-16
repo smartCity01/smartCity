@@ -26,11 +26,7 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     EventDetailsPage,
     ListPage,
     LoginPage,
-<<<<<<< HEAD
     ProfilePage,
-=======
-    ProfilePage,
->>>>>>> updated event service with createEvent method
     SignupPage,
     NewEventPage
   ],
@@ -53,12 +49,8 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     SignupPage,
     NewEventPage
   ],
-<<<<<<< HEAD
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, UserService, AuthService]
-=======
   //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, EventService] //T
 
->>>>>>> updated event service with createEvent method
 })
 export class AppModule { }
