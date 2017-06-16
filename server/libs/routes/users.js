@@ -38,6 +38,15 @@ router.get('/info', passport.authenticate('bearer', { session: false }),
     }
 );
 
+router.post('/signIn', passport.authenticate('bearer', { session: false }),
+    function (req, res) {
+
+        User.findOne({ username: username }, function (err, doc) {
+            console.log(doc);
+            res.send(200);
+        });
+    });
+
 router.post('/', passport.authenticate('bearer', { session: false }),
     function (req, res) {
 

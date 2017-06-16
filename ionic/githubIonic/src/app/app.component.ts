@@ -14,7 +14,7 @@ import { ListPage } from '../pages/list/list';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp { 
+export class MyApp {
   @ViewChild(Nav) nav: Nav;
   secureStorage: SecureStorage;
   pages: Array<{ component: any }>;
@@ -32,7 +32,7 @@ export class MyApp {
   ) {
     this.initializeApp();
     this.secureStorage = new SecureStorage();
-    this.accountService = new AccountService(this.secureStorage);
+    this.accountService = new AccountService();
     this.displayLoginPageIfApplicable();
 
     this.pages = [
@@ -49,11 +49,6 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.secureStorage.create('my_store')
-        .then(
-        () => console.log('Storage is ready!'),
-        error => console.log(error)
-        );
       StatusBar.styleDefault();
       Splashscreen.hide();
     });

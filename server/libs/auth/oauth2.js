@@ -18,8 +18,8 @@ var aserver = oauth2orize.createServer();
 
 // Generic error handler
 var errFn = function (cb, err) {
-	if (err) { 
-		return cb(err); 
+	if (err) {
+		return cb(err);
 	}
 };
 
@@ -27,72 +27,73 @@ var errFn = function (cb, err) {
 var generateTokens = function (data, done) {
 
 	// curries in `done` callback so we don't need to pass it
-    var errorHandler = errFn.bind(undefined, done), 
-	    refreshToken,
-	    refreshTokenValue,
-	    token,
-	    tokenValue;
+	var errorHandler = errFn.bind(undefined, done),
+		refreshToken,
+		refreshTokenValue,
+		token,
+		tokenValue;
 
-    RefreshToken.remove(data, errorHandler);
-    AccessToken.remove(data, errorHandler);
+	RefreshToken.remove(data, errorHandler);
+	AccessToken.remove(data, errorHandler);
 
-    tokenValue = crypto.randomBytes(32).toString('hex');
-    refreshTokenValue = crypto.randomBytes(32).toString('hex');
+	tokenValue = crypto.randomBytes(32).toString('hex');
+	refreshTokenValue = crypto.randomBytes(32).toString('hex');
 
-    data.token = tokenValue;
-    token = new AccessToken(data);
+	data.token = tokenValue;
+	token = new AccessToken(data);
 
-    data.token = refreshTokenValue;
-    refreshToken = new RefreshToken(data);
+	data.token = refreshTokenValue;
+	refreshToken = new RefreshToken(data);
 
-    refreshToken.save(errorHandler);
+	refreshToken.save(errorHandler);
 
-    token.save(function (err) {
-    	if (err) {
-			
+	token.save(function (err) {
+		if (err) {
+
 			log.error(err);
-    		return done(err); 
-    	}
-    	done(null, tokenValue, refreshTokenValue, { 
-    		'expires_in': config.get('security:tokenLife') 
-    	});
-    });
+			return done(err);
+		}
+		done(null, tokenValue, refreshTokenValue, {
+			'expires_in': config.get('security:tokenLife')
+		});
+	});
 };
 //Exchange client id and secret for token
-aserver.exchange(oauth2orize.exchange.clientCredentials(function(client, scope, done) {
-  Client.findOne({clientId: client.clientId}, function(err, code) {
-    if (err) { return done(err); }
-    if (client.clientSecret !== code.clientSecret) { return done(null, false); }
-	User.findOne({username: 'korede'},function(err,user){
-		if (err) { 
-			return done(err); 
-		}
-		var model = { 
-			userId: user.userId, 
-			clientId: client.clientId 
-		};
-		generateTokens(model, done);
-	});
+aserver.exchange(oauth2orize.exchange.clientCredentials(function (client, scope, done) {
+	Client.findOne({ clientId: client.clientId }, function (err, code) {
+		if (err) { return done(err); }
+		if (client.clientSecret !== code.clientSecret) { return done(null, false); }
+		User.findOne({ username: 'korede' }, function (err, user) {
+			if (err) {
+				return done(err);
+			}
+			var model = {
+				userId: user.userId,
+				clientId: client.clientId
+			};
+			generateTokens(model, done);
+		});
 
-  });
+	});
 }));
 
 
 // Exchange username & password for access token.
-aserver.exchange(oauth2orize.exchange.password(function(client, username, password, email, scope, done) {
-	User.findOne({ username: username }, function(err, user) {
-		
-		if (err) { 
-			return done(err); 
+aserver.exchange(oauth2orize.exchange.password(function (client, username, password, email, scope, done) {
+	User.findOne({ username: username }, function (err, user) {
+		console.log(client);
+		console.log(user);
+		if (err) {
+			return done(err);
 		}
-		
-	if (!user || !user.checkPassword(password)) {
+
+		if (!user || !user.checkPassword(password)) {
 			return done(null, false);
 		}
 
-		var model = { 
-			userId: user.userId, 
-			clientId: client.clientId 
+		var model = {
+			userId: user.userId,
+			clientId: client.clientId
 		};
 
 		generateTokens(model, done);
@@ -101,24 +102,24 @@ aserver.exchange(oauth2orize.exchange.password(function(client, username, passwo
 }));
 
 // Exchange refreshToken for access token.
-aserver.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken, scope, done) {
+aserver.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken, scope, done) {
 
-	RefreshToken.findOne({ token: refreshToken, clientId: client.clientId }, function(err, token) {
-		if (err) { 
-			return done(err); 
+	RefreshToken.findOne({ token: refreshToken, clientId: client.clientId }, function (err, token) {
+		if (err) {
+			return done(err);
 		}
 
-		if (!token) { 
-			return done(null, false); 
+		if (!token) {
+			return done(null, false);
 		}
 
-		User.findById(token.userId, function(err, user) {
+		User.findById(token.userId, function (err, user) {
 			if (err) { return done(err); }
 			if (!user) { return done(null, false); }
 
-			var model = { 
-				userId: user.userId, 
-				clientId: client.clientId 
+			var model = {
+				userId: user.userId,
+				clientId: client.clientId
 			};
 
 			generateTokens(model, done);

@@ -1,3 +1,5 @@
+import { AccountService } from './../util/account.service';
+import { SecureStorage } from 'ionic-native';
 import { AuthService } from './auth.service';
 // Imports
 import { Injectable } from '@angular/core';
@@ -12,7 +14,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class UserService {
     // Resolve HTTP using the constructor
-    constructor(private http: Http, private authService: AuthService) { }
+    constructor(private http: Http, private authService: AuthService, private accountService: AccountService) { }
     // private instance variable to hold base url
     private id_secret_Url = 'http://localhost:1337/api/users/';
 
@@ -25,6 +27,19 @@ export class UserService {
             .map((res) => res.json())
             //..errors if any
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
+    }
+
+    signIn(username, password) {
+        return this.authService.signIn(username, password);
+    }
+
+    getUserInfo(userId) {
+        let token = this.accountService.secureStorage.get('token');
+        let head = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        });
+        return this.http.get(this.id_secret_Url, { headers: head });
     }
 
     signUp(username, password, email): Observable<Response> {
@@ -46,8 +61,17 @@ export class UserService {
         }).catch(error => {
             console.error(error);
             return Observable.throw(error || 'Server error')
-        })
+        });
     }
+
+    doSignInPost(body, head) {
+        return this.http.post(this.id_secret_Url + 'signIn', body, { headers: head })
+            .map((res) => {
+                return res;
+            })
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+
 
     doSignUpPost(body, head) {
         return this.http.post(this.id_secret_Url, body, { headers: head })

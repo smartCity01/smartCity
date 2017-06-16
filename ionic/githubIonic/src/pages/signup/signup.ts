@@ -10,14 +10,12 @@ export class SignupPage {
     password;
     email;
 
-
-
-    constructor (
-        private userService: UserService,public viewCtrl: ViewController,
+    constructor(
+        private userService: UserService,
+        public viewCtrl: ViewController,
         public loadctrl: LoadingController,
         public toastCtrl: ToastController
     ){}
-
 
 
     dismiss() {

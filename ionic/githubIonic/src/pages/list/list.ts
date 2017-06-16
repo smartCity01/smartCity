@@ -39,7 +39,6 @@ export class ListPage {
   }
 
   doRefresh(refresher) {
-    console.log(this.items);
     this.items.push({
       title: 'event ' + (this.items.length + 1),
       note: 'This is event #' + (this.items.length + 1),
@@ -52,8 +51,8 @@ export class ListPage {
     }, 2000);
   }
 
-  createNewEvent(){
-     let modal = this.modalCtrl.create(NewEventPage);
-        modal.present();
+  createNewEvent() {
+    let modal = this.modalCtrl.create(NewEventPage);
+    modal.present();
   }
 }
