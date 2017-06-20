@@ -1,3 +1,5 @@
+import { RefresherService } from './../../services/refresher.service';
+import { EventService } from './../../services/event.service';
 import { EventDetailsPage } from './../event-details/event-details';
 import { Event } from './../../model/event';
 import { UserService } from './../../services/users.service';
@@ -12,29 +14,36 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
   currentUser: User;
-  items: Array<{ title: string, note: string, icon: String}>;
-   icons: string[];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-     var text=localStorage.getItem('currentUser');
-       this.currentUser = JSON.parse(text);
-
-this.icons = ['flask', 'wifi', 'paper-plane',
-      'american-football', 'boat', 'bluetooth', 'build'];
-
-       this.items = [];
-    for (let i = 1; i < 6; i++) {
-      this.items.push({
-        title: 'event ' + i,
-        note: 'see event ' + i + ' details',
-         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-             });
-    }
-    }
-  
- Selected(item) {
-    this.navCtrl.push(EventDetailsPage, {
-      item: item
+  events: Event[] = [];
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public eventService: EventService,
+    private refresherService: RefresherService) {
+    this.fetchEvents();
+    refresherService.refresher.subscribe(() => {
+      this.fetchEvents();
     });
   }
 
+  getUserInfo() {
+    return JSON.parse(localStorage.getItem('userData'));
+  }
+
+  fetchEvents() {
+    this.eventService.getUserEvents().subscribe(response => {
+      this.events = [];
+      response.forEach(event => {
+        this.events.push(new Event(event.title, null, null, null));
+      })
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  itemTapped(event) {
+    this.navCtrl.push(EventDetailsPage, {
+      item: event
+    });
+  }
 }

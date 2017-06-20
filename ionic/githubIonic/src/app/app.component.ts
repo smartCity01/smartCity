@@ -1,3 +1,4 @@
+import { UserService } from './../services/users.service';
 import { ProfilePage } from './../pages/profile/profile';
 import { LoginPage } from './../pages/login/login';
 import { AccountService } from './../util/account.service';
@@ -24,11 +25,11 @@ export class MyApp {
   tab4: any;
   notification: number = 3;
   accountService: AccountService;
-  mode = 'Observable'; //T
   constructor(
     public platform: Platform,
     public menu: MenuController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private userService: UserService
   ) {
     this.initializeApp();
     this.secureStorage = new SecureStorage();
@@ -38,8 +39,8 @@ export class MyApp {
     this.pages = [
       { component: LocationsPage },
       { component: ListPage },
-      { component: ProfilePage}
-     
+      { component: ProfilePage }
+
     ];
     this.tab1 = this.pages[1].component;
     this.tab2 = this.pages[0].component;
@@ -58,6 +59,10 @@ export class MyApp {
     if (!this.accountService.isLoggedIn()) {
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
+    } else {
+      this.userService.getUserInfo().subscribe(response => {
+        localStorage.setItem('userData', JSON.stringify(response));
+      })
     }
   }
 

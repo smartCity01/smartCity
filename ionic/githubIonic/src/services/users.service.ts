@@ -16,13 +16,13 @@ export class UserService {
     // Resolve HTTP using the constructor
     constructor(private http: Http, private authService: AuthService, private accountService: AccountService) { }
     // private instance variable to hold base url
-    private id_secret_Url = 'http://localhost:1337/api/users/';
+    private Url = 'http://localhost:1337/api/users/';
 
     // Fetch all existing IDs and Secrets
     getUsers(): Observable<any> {
 
         // ..using get Request Options
-        return this.http.get(this.id_secret_Url)
+        return this.http.get(this.Url)
             // ...and calling .json() on the response to return data
             .map((res) => res.json())
             //..errors if any
@@ -33,13 +33,14 @@ export class UserService {
         return this.authService.signIn(username, password);
     }
 
-    getUserInfo(userId) {
-        let token = this.accountService.secureStorage.get('token');
+    getUserInfo() {
+        let token = localStorage.getItem('user-token');
         let head = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         });
-        return this.http.get(this.id_secret_Url, { headers: head });
+        return this.http.get(this.Url + '/info', { headers: head })
+            .map((res: Response) => res.json());
     }
 
     signUp(username, password, email): Observable<Response> {
@@ -65,7 +66,7 @@ export class UserService {
     }
 
     doSignInPost(body, head) {
-        return this.http.post(this.id_secret_Url + 'signIn', body, { headers: head })
+        return this.http.post(this.Url + 'signIn', body, { headers: head })
             .map((res) => {
                 return res;
             })
@@ -74,9 +75,9 @@ export class UserService {
 
 
     doSignUpPost(body, head) {
-        return this.http.post(this.id_secret_Url, body, { headers: head })
+        return this.http.post(this.Url, body, { headers: head })
             .map((res) => {
-                return res;
+                return res.json;
             })
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }

@@ -1,3 +1,4 @@
+import { RefresherService } from './../services/refresher.service';
 import { AccountService } from './../util/account.service';
 import { EventService } from './../services/event.service';
 import { ProfilePage } from './../pages/profile/profile';
@@ -50,7 +51,13 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     NewEventPage
   ],
   //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, AccountService, EventService] //T
+  providers: [
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthService,
+    UserService,
+    AccountService,
+    EventService,
+    RefresherService] //T
 
 })
 export class AppModule { }

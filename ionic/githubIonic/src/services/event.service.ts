@@ -42,11 +42,7 @@ export class EventService {
     }
 
     getAllEvents() {
-        // specify the content header
-        let head = new Headers({
-            'Content-Type': 'application/json',
-        });
-        return this.http.get(this.Url, head)
+        return this.http.get(this.Url + '/timeline', this.getHeaders())
             .map((res: Response) => res.json());
     }
 
