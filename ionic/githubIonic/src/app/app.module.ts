@@ -1,4 +1,9 @@
+import { RefresherService } from './../services/refresher.service';
 import { AccountService } from './../util/account.service';
+import { EventService } from './../services/event.service';
+import { ProfilePage } from './../pages/profile/profile';
+import { AuthService } from './../services/auth.service';
+import { UserService } from './../services/users.service';
 import { NewEventPage } from './../pages/new-event/new-event';
 import { SignupPage } from './../pages/signup/signup';
 import { LoginPage } from './../pages/login/login';
@@ -13,8 +18,7 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
 
 // T- Imports for loading and configuring the in-memory web api 
 //import { InMemoryWebApiModule} from 'angular-in-memory-web-api';// <?
-import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/users.service';
+
 
 @NgModule({
   declarations: [
@@ -23,6 +27,7 @@ import { UserService } from '../services/users.service';
     EventDetailsPage,
     ListPage,
     LoginPage,
+    ProfilePage,
     SignupPage,
     NewEventPage
   ],
@@ -40,12 +45,19 @@ import { UserService } from '../services/users.service';
     LocationsPage,
     EventDetailsPage,
     ListPage,
+    ProfilePage,
     LoginPage,
     SignupPage,
     NewEventPage
   ],
   //providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, AuthService, UserService, AccountService] //T
+  providers: [
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthService,
+    UserService,
+    AccountService,
+    EventService,
+    RefresherService] //T
 
 })
 export class AppModule { }

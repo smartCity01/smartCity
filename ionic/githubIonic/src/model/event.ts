@@ -1,7 +1,9 @@
 export class Event {
-
-
-    constructor(private title: String, private time: number, private endTime: number,private venue: String){
+    constructor(
+        public title: String,
+        public time: number,
+        public endTime: number,
+        public venue: String) {
 
     }
 

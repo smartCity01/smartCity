@@ -1,14 +1,14 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>
-            Timeline
-        </ion-title>
-        <ion-buttons start>
-          <button ion-button (click)="createNewEvent()">
+  <ion-toolbar>
+    <ion-title>
+      Timeline
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="createNewEvent()">
              <ion-icon name="add"></ion-icon>
            </button>
-        </ion-buttons>
-    </ion-toolbar>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -17,11 +17,11 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
-      {{item.title}}
+    <button ion-item *ngFor="let event of events" (click)="itemTapped(event)">
+      <ion-icon name="wifi" item-left></ion-icon>
+      {{event.title}}
       <div class="item-note" item-right>
-        {{item.note}}
+        {{event.title}}
       </div>
     </button>
   </ion-list>

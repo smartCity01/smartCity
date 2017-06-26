@@ -1,7 +1,11 @@
+import { RefresherService } from './../../services/refresher.service';
+import { AccountService } from './../../util/account.service';
+import { Event } from './../../model/event';
+import { EventService } from './../../services/event.service';
 import { NewEventPage } from './../new-event/new-event';
 import { Component } from '@angular/core';
 
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 
 import { EventDetailsPage } from '../event-details/event-details';
 
@@ -13,47 +17,52 @@ import { EventDetailsPage } from '../event-details/event-details';
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  items: Array<{ title: string, note: string, icon: string }>;
+  events: Event[] = [];
+  loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
+    public eventService: EventService,
+    public loadCtrl: LoadingController,
+    private accountService: AccountService,
+    private refresherService: RefresherService) {
+    this.loading = loadCtrl.create();
+    this.fetchTimelineEvents(() => { });
+    refresherService.refresher.subscribe(a => {
+      if (accountService.isLoggedIn()) {
+        this.fetchTimelineEvents(() => { });
+      }
+    });
 
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-      'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 22; i++) {
-      this.items.push({
-        title: 'event ' + i,
-        note: 'This is event #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  }
+  itemTapped(event) {
+    this.navCtrl.push(EventDetailsPage, {
+      item: event
+    });
   }
 
-  itemTapped(event, item) {
-    this.navCtrl.push(EventDetailsPage, {
-      item: item
-    });
+  fetchTimelineEvents(afterFetch: Function) {
+    this.eventService.getAllEvents().subscribe(response => {
+      this.loading.dismiss();
+      afterFetch();
+      this.events = [];
+      response.forEach(eventFromBackend => {
+        this.events.push(new Event(eventFromBackend.title, null, null, null));
+      });
+    }, err => {
+      console.log(err);
+      this.loading.dismiss();
+    })
   }
 
   doRefresh(refresher) {
-    console.log(this.items);
-    this.items.push({
-      title: 'event ' + (this.items.length + 1),
-      note: 'This is event #' + (this.items.length + 1),
-      icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-    });
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      refresher.complete();
-    }, 2000);
+    this.fetchTimelineEvents(() => refresher.complete())
   }
 
-  createNewEvent(){
-     let modal = this.modalCtrl.create(NewEventPage);
-        modal.present();
+  createNewEvent() {
+    let modal = this.modalCtrl.create(NewEventPage);
+    modal.present();
   }
 }

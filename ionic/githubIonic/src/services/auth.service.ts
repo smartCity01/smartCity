@@ -1,8 +1,10 @@
 // Imports
 import { Injectable } from '@angular/core';
 //import {Http, Response, Headers, RequestOptions} from '@angular/http';
+
 import { Http, Response, Headers } from '@angular/http';
 import { User } from '../src/Model/user';
+
 import { Observable } from 'rxjs/Observable';
 
 //Import RxJs required methods
@@ -56,8 +58,6 @@ export class AuthService {
             //..errors if any
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
     }
-
-
 
 
 }

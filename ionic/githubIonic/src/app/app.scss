@@ -1,3 +1,22 @@
 body{
-    
+    .toolbar-background-md, .toolbar-background-ios {
+        border-color: #b2b2b2;
+        background: lightcyan;
+    }
+    .tabs-md .tabbar, .tabs-ios .tabbar {
+        background: lightcyan;
+    }
+
+    .item-md, .item-ios{
+        background:  royalblue;
+        color: lightcyan;
+    }
+
+    .content-ios, .content-md{
+        background: white;    
+    }
+
+    h2, h3 {
+        color: royalblue;
+    }
 }

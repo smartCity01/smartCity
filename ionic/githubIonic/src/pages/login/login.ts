@@ -24,7 +24,8 @@ export class LoginPage {
 
     signIn() {
         this.userService.signIn(this.username, this.password).subscribe(response => {
-
+            localStorage.setItem('user-token', response.access_token);
+            localStorage.setItem('refresh-token', response.refresh_token);
             this.viewCtrl.dismiss();
             let toast = this.toastCtrl.create({
                 message: 'Login Successful',
