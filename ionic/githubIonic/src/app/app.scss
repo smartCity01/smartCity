@@ -1,0 +1,62 @@
+
+$base-colour:#008BB6;
+$fore-colour:white;
+$font-color:#008BB6;
+$header-font-color:white;
+body {
+    .toolbar-background-md,
+    .toolbar-background-ios {
+        border-color: #b2b2b2;
+        background: $base-colour;
+    }
+    .toolbar-title-ios,
+    .toolbar-title-md {
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+        color: $header-font-color;
+    }
+    .text-ios-primary,
+    .text-md-primary {
+        color: $header-font-color;
+    }
+    .bar-button-ios,
+    .bar-button-md {
+        color: $header-font-color;
+    }
+    .tabs-md .tabbar,
+    .tabs-ios .tabbar {
+        background: $base-colour;
+    }
+    .badge-ios,
+    .badge-md {
+        background: red;
+        color: white;
+    }
+    .item-md,
+    .item-ios {
+        background: $fore-colour;
+        color: $font-color;
+    }
+    .content-ios,
+    .content-md {
+        background: white;
+    }
+    ion-thumbnail {
+        height: 100%
+    }
+    .shift-right {
+        float: left;
+    }
+    .tabs-ios .tab-button-icon,
+    .tabs-md .tab-button-icon {
+        color: $header-font-color;
+    }
+    .tabs-md .tab-button[aria-selected=true] .tab-button-icon,
+    .tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
+        color: gold;
+    }
+    h2,
+    h3 {
+        color: $font-color;
+    }
+}
+

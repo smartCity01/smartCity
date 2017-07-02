@@ -1,3 +1,4 @@
+import { RefresherService } from './../../services/refresher.service';
 import { Event } from './../../model/event';
 import { EventService } from './../../services/event.service';
 //mport { EventDetailsPage } from './../event-details/event-details';
@@ -24,7 +25,8 @@ export class NewEventPage {
         public eventService: EventService,
         public viewCtrl: ViewController,
         public modalCtrl: ModalController,
-        public toastCtrl: ToastController
+        public toastCtrl: ToastController,
+        private refresherService: RefresherService
     ) { }
 
     //method to create event
@@ -37,6 +39,7 @@ export class NewEventPage {
                 position: 'top'
             })
             toast.present();
+            this.refresherService.refresher.next(0);
         },
             err => {
                 console.log(this.error);

@@ -13,8 +13,6 @@ router.use(function (req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
 	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-
-	log.info(req.method);
 	//intercepts OPTIONS method
 	if ('OPTIONS' === req.method) {
 		//respond with 200
@@ -43,6 +41,25 @@ router.get('/', passport.authenticate('bearer', { session: false }), function (r
 		}
 	});
 });
+
+
+router.get('/timeline', passport.authenticate('bearer', { session: false }), function (req, res) {
+
+	Event.find({}, function (err, events) {
+		if (!err) {
+			return res.json(events);
+		} else {
+			res.statusCode = 500;
+
+			log.error('Internal error(%d): %s', res.statusCode, err.message);
+
+			return res.json({
+				error: 'Server error'
+			});
+		}
+	});
+});
+
 
 router.post('/', passport.authenticate('bearer', { session: false }), function (req, res) {
 

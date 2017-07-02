@@ -1,10 +1,10 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>
-            Timeline
+            TunUp
         </ion-title>
         <ion-buttons start>
-          <button ion-button (click)="createNewEvent()">
+            <button ion-button (click)="createNewEvent()">
              <ion-icon name="add"></ion-icon>
            </button>
         </ion-buttons>
@@ -12,21 +12,19 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content>
-    </ion-refresher-content>
-  </ion-refresher>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+        <button ion-item *ngFor="let event of events" (click)="itemTapped(event)">
+      <h2>{{event.title}}</h2>
+      <p>test</p>
+        <div item-content>
+        <ion-avatar item-end>
+      <img src="http://i.imgur.com/U79QTNob.jpg">
+        </ion-avatar>
+        </div>
     </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
-
+    </ion-list>
 </ion-content>
