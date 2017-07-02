@@ -1,3 +1,4 @@
+import { SettingsPage } from './../settings/settings';
 import { RefresherService } from './../../services/refresher.service';
 import { EventService } from './../../services/event.service';
 import { EventDetailsPage } from './../event-details/event-details';
@@ -6,6 +7,7 @@ import { UserService } from './../../services/users.service';
 import { User } from './../../model/user';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {  ModalController, LoadingController } from 'ionic-angular';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class ProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public modalCtrl: ModalController,
     public eventService: EventService,
     private refresherService: RefresherService) {
     this.fetchEvents();
@@ -46,4 +49,9 @@ export class ProfilePage {
       item: event
     });
   }
+goToSettings() {
+    let modal = this.modalCtrl.create(SettingsPage);
+    modal.present();
+  }
+  
 }
