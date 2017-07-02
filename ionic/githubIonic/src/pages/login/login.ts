@@ -1,3 +1,4 @@
+import { MyApp } from './../../app/app.component';
 import { UserService } from './../../services/users.service';
 import { SignupPage } from './../signup/signup';
 import { Component } from '@angular/core';
@@ -26,7 +27,8 @@ export class LoginPage {
         this.userService.signIn(this.username, this.password).subscribe(response => {
             localStorage.setItem('user-token', response.access_token);
             localStorage.setItem('refresh-token', response.refresh_token);
-            this.viewCtrl.dismiss();
+             let modal = this.modalCtrl.create(MyApp);
+              modal.present();
             let toast = this.toastCtrl.create({
                 message: 'Login Successful',
                 duration: 3000,
