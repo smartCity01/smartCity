@@ -15,7 +15,7 @@ import { NavController, NavParams, LoadingController, ModalController } from 'io
 })
 export class ProfilePage {
   currentUser;
-  events: Event[] = [];
+  events: Event[];
   loader;
   constructor(
     public navCtrl: NavController,
@@ -76,6 +76,6 @@ export class ProfilePage {
   }
 
   contentsLoaded() {
-    return localStorage.getItem('userData') && this.events.length !== 0;
+    return localStorage.getItem('userData') && this.events;
   }
 }
