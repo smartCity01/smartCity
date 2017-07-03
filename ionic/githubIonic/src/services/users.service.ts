@@ -1,12 +1,11 @@
 import { AccountService } from './../util/account.service';
-import { SecureStorage } from 'ionic-native';
 import { AuthService } from './auth.service';
 // Imports
 import { Injectable } from '@angular/core';
 //import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Http, Response, Headers } from '@angular/http';
-import { User } from '../src/Model/user';
 import { Observable } from 'rxjs/Rx';
+import { UrlProvider } from "../util/url-provider";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -16,7 +15,7 @@ export class UserService {
   // Resolve HTTP using the constructor
   constructor(private http: Http, private authService: AuthService, private accountService: AccountService) { }
   // private instance variable to hold base url
-  private Url = 'http://localhost:1337/api/users/';
+  private Url = UrlProvider.url + '/api/users/';
 
   // Fetch all existing IDs and Secrets
   getUsers(): Observable<any> {
@@ -44,33 +43,20 @@ export class UserService {
   }
 
   signUp(username, password, email): Observable<Response> {
-    return this.authService.getSignUpToken().concatMap(response => {
-      let token = response.access_token;
-
-      let data = {
-        "username": username,
-        "password": password,
-        "email": email
-      }
-      let body = JSON.stringify(data); //put the data in a string form so it can be easily sent
-      let head = new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      });
-
-      return this.doSignUpPost(body, head);
-    }).catch(error => {
-      console.error(error);
-      return Observable.throw(error || 'Server error')
+    let data = {
+      "client_id": "android",
+      "client_secret": "myClientSecret",
+      "username": username,
+      "password": password,
+      "email": email
+    }
+    let body = JSON.stringify(data); //put the data in a string form so it can be easily sent
+    let head = new Headers({
+      'Content-Type': 'application/json',
+      // 'Authorization': 'Bearer ' + token
     });
-  }
 
-  doSignInPost(body, head) {
-    return this.http.post(this.Url + 'signIn', body, { headers: head })
-      .map((res) => {
-        return res;
-      })
-      .catch((error: any) => Observable.throw(error || 'Server error'));
+    return this.doSignUpPost(body, head);
   }
 
 
