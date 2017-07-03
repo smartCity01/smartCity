@@ -21,7 +21,7 @@ export class SettingsPage {
   SignOut(){
   localStorage.removeItem('user-token');
   localStorage.removeItem('refresh-token');
-  var userData = localStorage.getItem('userData');
+  let userData = localStorage.getItem('userData');
 
 if(userData) {
   localStorage.removeItem('userData')
