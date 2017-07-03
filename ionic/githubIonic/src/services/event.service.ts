@@ -3,7 +3,7 @@ import { User } from './../model/user';
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 //import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers,RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -11,11 +11,10 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class EventService {
-    // Resolve HTTP using the constructor
+   // Resolve HTTP using the constructor
     constructor(private http: Http, private authService: AuthService) { }
     // private instance variable to hold base url
-    private Url = 'http://localhost:1337/api/events';
-
+    private Url = 'http://localhost:1337/api/events';    
     // post event to server
     createEvent(title, time, endTime, venue): Observable<any> {
         //pass the parameter to the data properties

@@ -15,7 +15,8 @@ export class SignupPage {
         public viewCtrl: ViewController,
         public loadctrl: LoadingController,
         public toastCtrl: ToastController
-    ) { }
+    ){}
+
 
     dismiss() {
         this.viewCtrl.dismiss();
@@ -48,5 +49,6 @@ export class SignupPage {
                     console.log(toast);
                 }
             });
+
     }
 }
