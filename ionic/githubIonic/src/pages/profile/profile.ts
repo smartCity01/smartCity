@@ -49,9 +49,7 @@ export class ProfilePage {
       item: event
     });
   }
-goToSettings() {
-    let modal = this.modalCtrl.create(SettingsPage);
-    modal.present();
+displaySettings() {
+   this.navCtrl.push(SettingsPage);
   }
-  
-}
+  }

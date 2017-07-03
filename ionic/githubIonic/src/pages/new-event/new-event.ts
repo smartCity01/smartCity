@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 import { ViewController, ModalController, ToastController } from 'ionic-angular';
 
 
-
 @Component({
     selector: 'new-event',
     templateUrl: 'new-event.html'
@@ -17,10 +16,8 @@ export class NewEventPage {
     time: number;
     endTime: number;
     venue: String;
-    success:"Event was created successfully" 
-    error:"Error! unable to create event"
-   //method to create event
-    "Error! unable to create event";
+  success = "Event was created successfully";
+  error = "Error! unable to create event";
     constructor(
         public eventService: EventService,
         public viewCtrl: ViewController,

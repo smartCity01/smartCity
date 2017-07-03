@@ -20,11 +20,14 @@ export class SettingsPage {
   }
   SignOut(){
   localStorage.removeItem('user-token');
-   let modal = this.modalCtrl.create(LoginPage);
-    modal.present();
-  }
-   dismiss() {
-        this.viewCtrl.dismiss();
-    }
+  localStorage.removeItem('refresh-token');
+  var userData = localStorage.getItem('userData');
 
+if(userData) {
+  localStorage.removeItem('userData')
+}
+
+  window.location.reload();
+  }
+   
 }

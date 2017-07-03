@@ -11,9 +11,7 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class EventService {
-
-  
-    // Resolve HTTP using the constructor
+   // Resolve HTTP using the constructor
     constructor(private http: Http, private authService: AuthService) { }
     // private instance variable to hold base url
     private Url = 'http://localhost:1337/api/events';    

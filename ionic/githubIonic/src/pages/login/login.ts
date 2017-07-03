@@ -11,8 +11,6 @@ import { ViewController, ModalController, ToastController } from 'ionic-angular'
 export class LoginPage {
     username: string;
     password: string;
-
-
     constructor(public viewCtrl: ViewController,
         public modalCtrl: ModalController,
         private userService: UserService,
@@ -27,9 +25,8 @@ export class LoginPage {
         this.userService.signIn(this.username, this.password).subscribe(response => {
             localStorage.setItem('user-token', response.access_token);
             localStorage.setItem('refresh-token', response.refresh_token);
-             let modal = this.modalCtrl.create(MyApp);
-              modal.present();
-            let toast = this.toastCtrl.create({
+            this.viewCtrl.dismiss();
+             let toast = this.toastCtrl.create({
                 message: 'Login Successful',
                 duration: 3000,
                 position: 'top'
