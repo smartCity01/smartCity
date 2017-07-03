@@ -1,4 +1,3 @@
-
 $base-colour:#008BB6;
 $fore-colour:white;
 $font-color:#008BB6;
@@ -11,7 +10,7 @@ body {
     }
     .toolbar-title-ios,
     .toolbar-title-md {
-        font-family: "Comic Sans MS", "Comic Sans", cursive;
+        font-family: "Comic Sans MS", "Comic Sans";
         color: $header-font-color;
     }
     .text-ios-primary,
@@ -59,4 +58,3 @@ body {
         color: $font-color;
     }
 }
-

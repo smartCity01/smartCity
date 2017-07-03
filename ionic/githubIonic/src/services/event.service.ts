@@ -1,5 +1,5 @@
+import { UrlProvider } from './../util/url-provider';
 //imports
-import { User } from './../model/user';
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 //import {Http, Response, Headers, RequestOptions} from '@angular/http';
@@ -14,7 +14,7 @@ export class EventService {
   // Resolve HTTP using the constructor
   constructor(private http: Http, private authService: AuthService) { }
   // private instance variable to hold base url
-  private Url = 'https://whispering-oasis-43473.herokuapp.com/api/events';
+  private Url = UrlProvider.url + '/api/events';
 
   // post event to server
   createEvent(title, time, endTime, venue): Observable<any> {

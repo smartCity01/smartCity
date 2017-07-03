@@ -1,11 +1,16 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Settings</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Settings</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <div padding>
-        <button ion-button color="dark" outline (click)="SignOut()">Sign Out</button>
+    <div padding>
+        <ion-list>
+            <button ion-item (click)="SignOut()">
+      <ion-icon name="settings" item-left></ion-icon>
+      Sign Out
+    </button>
+        </ion-list>
     </div>
 </ion-content>

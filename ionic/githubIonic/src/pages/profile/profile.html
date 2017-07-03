@@ -3,11 +3,11 @@
         <ion-title>
             Account
         </ion-title>
-<ion-buttons start>
-<button ion-button (click)="displaySettings()">
+        <ion-buttons start>
+            <button ion-button (click)="displaySettings()">
              <ion-icon name="settings"></ion-icon>
            </button>
-           </ion-buttons>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -16,12 +16,12 @@
     <h2 text-center>
         Details
     </h2>
-    <ion-list>
+    <ion-list *ngIf="currentUser">
         <ion-item>
             <ion-label fixed>Full Name</ion-label>
         </ion-item>
         <ion-item>
-            Username : {{getUserInfo().name}}
+            Username : {{currentUser.name}}
         </ion-item>
         <ion-item>
             <ion-label fixed>Email</ion-label>

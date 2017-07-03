@@ -2,21 +2,21 @@
 import { Injectable } from '@angular/core';
 //import {Http, Response, Headers, RequestOptions} from '@angular/http';
 
-import { Http, Response, Headers } from '@angular/http';
-import { User } from '../src/Model/user';
+import { Http, Headers } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
 //Import RxJs required methods
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { UrlProvider } from "../util/url-provider";
 
 @Injectable()
 export class AuthService {
   // Resolve HTTP using the constructor
   constructor(private http: Http) { }
   // private instance variable to hold base url
-  private id_secret_Url = 'https://whispering-oasis-43473.herokuapp.com/api/oauth/token';
+  private id_secret_Url = UrlProvider.url + '/api/oauth/token';
 
   // Fetch all existing IDs and Secrets
   getSignUpToken(): Observable<any> {

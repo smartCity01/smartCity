@@ -1,12 +1,11 @@
 import { AccountService } from './../util/account.service';
-import { SecureStorage } from 'ionic-native';
 import { AuthService } from './auth.service';
 // Imports
 import { Injectable } from '@angular/core';
 //import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Http, Response, Headers } from '@angular/http';
-import { User } from '../src/Model/user';
 import { Observable } from 'rxjs/Rx';
+import { UrlProvider } from "../util/url-provider";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -16,7 +15,7 @@ export class UserService {
   // Resolve HTTP using the constructor
   constructor(private http: Http, private authService: AuthService, private accountService: AccountService) { }
   // private instance variable to hold base url
-  private Url = 'https://whispering-oasis-43473.herokuapp.com/api/users/';
+  private Url = UrlProvider.url + '/api/users/';
 
   // Fetch all existing IDs and Secrets
   getUsers(): Observable<any> {

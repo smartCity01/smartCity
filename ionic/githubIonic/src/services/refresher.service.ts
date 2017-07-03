@@ -11,5 +11,10 @@ export class RefresherService {
       this.refresher.next(data);
     })
   }
+
+  refresh() {
+    this.refresher.next(0);
+  }
+
 }
 
