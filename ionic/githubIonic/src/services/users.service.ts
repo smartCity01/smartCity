@@ -16,7 +16,7 @@ export class UserService {
   // Resolve HTTP using the constructor
   constructor(private http: Http, private authService: AuthService, private accountService: AccountService) { }
   // private instance variable to hold base url
-  private Url = 'http://localhost:1337/api/users/';
+  private Url = 'https://whispering-oasis-43473.herokuapp.com/api/users/';
 
   // Fetch all existing IDs and Secrets
   getUsers(): Observable<any> {
