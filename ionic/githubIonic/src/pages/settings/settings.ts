@@ -1,8 +1,7 @@
-import { LoginPage } from './../login/login';
 import { Component } from '@angular/core';
-import {  ModalController, LoadingController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 import { NavController, NavParams } from 'ionic-angular';
-import { ViewController,  ToastController } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 
 
 @Component({
@@ -12,22 +11,21 @@ import { ViewController,  ToastController } from 'ionic-angular';
 export class SettingsPage {
   selectedItem: any;
 
-  constructor(public navCtrl: NavController, 
-  public modalCtrl: ModalController,
-  public viewCtrl: ViewController,
-  public navParams: NavParams) {
-   
-  }
-  SignOut(){
-  localStorage.removeItem('user-token');
-  localStorage.removeItem('refresh-token');
-  let userData = localStorage.getItem('userData');
+  constructor(public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public viewCtrl: ViewController,
+    public navParams: NavParams) {
 
-if(userData) {
-  localStorage.removeItem('userData')
-}
-
-  window.location.reload();
   }
-   
+   SignOut() {
+    localStorage.removeItem('user-token');
+    localStorage.removeItem('refresh-token');
+    let userData = localStorage.getItem('userData');
+    if (userData) {
+      localStorage.removeItem('userData')
+    }
+
+    window.location.reload();
+  }
+
 }
