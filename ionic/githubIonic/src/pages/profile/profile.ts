@@ -17,6 +17,9 @@ export class ProfilePage {
   currentUser;
   events: Event[];
   loader;
+  success="Event Deleted"
+  err="Event not Deleted"
+  id:String;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -55,8 +58,11 @@ export class ProfilePage {
   fetchEvents() {
     this.eventService.getUserEvents().subscribe(response => {
       this.events = [];
-      response.forEach(event => {
-        this.events.push(new Event(event.title, null, null, null));
+      response.forEach(res => {
+        localStorage.setItem('eventData', JSON.stringify(res));
+        let eventData = JSON.parse(localStorage.getItem('eventData'));
+        
+         this.events.push(new Event(eventData.title, null, null, null,eventData._id));
       })
       if (this.contentsLoaded()) {
         this.loader.dismiss();
@@ -65,12 +71,23 @@ export class ProfilePage {
       console.log(err);
     })
   }
+  deleteEvent(id){
+ this.eventService.deleteEvent(id).subscribe(response => {
+   
+      console.log(this.success);
+         },
+      err => {
+       console.log(this.err);
+      }
+    );
 
+  }
   itemTapped(event) {
     this.navCtrl.push(EventDetailsPage, {
       item: event
     });
   }
+ 
   displaySettings() {
     this.navCtrl.push(SettingsPage);
   }

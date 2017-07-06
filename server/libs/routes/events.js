@@ -123,6 +123,17 @@ router.get('/:id', passport.authenticate('bearer', { session: false }), function
 		}
 	});
 });
+router.delete('/:id' , function(req,res){
+  var id= req.params.id;
+  Event.Remove({_id:id},function(err){
+   if(!err){
+    return res.status(200).send();	 
+   }
+    console.log(err);
+     return res.status(500).send();
+  });
+	
+});
 
 router.put('/:id', passport.authenticate('bearer', { session: false }), function (req, res) {
 	var eventId = req.params.id;
