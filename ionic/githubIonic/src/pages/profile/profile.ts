@@ -4,9 +4,8 @@ import { EventService } from './../../services/event.service';
 import { EventDetailsPage } from './../event-details/event-details';
 import { Event } from './../../model/event';
 import { UserService } from './../../services/users.service';
-import { User } from './../../model/user';
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ModalController, AlertController, ToastController } from 'ionic-angular';
 
 
 @Component({
@@ -17,24 +16,20 @@ export class ProfilePage {
   currentUser;
   events: Event[];
   loader;
-  success="Event Deleted"
-  err="Event not Deleted"
-  id:String;
+  id: String;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
+    private alertCtrl: AlertController,
     public eventService: EventService,
     public userService: UserService,
     private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController,
     private refresherService: RefresherService) {
-    this.loader = this.loadingCtrl.create({
-      spinner: 'dots',
-      content: 'Loading Please Wait...'
-    });
 
     if (!this.contentsLoaded()) {
-      this.loader.present();
+      this.createAndPresentLoader();
     }
     this.fetchEvents();
     if (!localStorage.getItem('userData')) {
@@ -54,6 +49,13 @@ export class ProfilePage {
     });
   }
 
+  createAndPresentLoader() {
+    this.loader = this.loadingCtrl.create({
+      spinner: 'dots',
+      content: 'Loading Please Wait...'
+    });
+    this.loader.present();
+  }
 
   fetchEvents() {
     this.eventService.getUserEvents().subscribe(response => {
@@ -61,8 +63,8 @@ export class ProfilePage {
       response.forEach(res => {
         localStorage.setItem('eventData', JSON.stringify(res));
         let eventData = JSON.parse(localStorage.getItem('eventData'));
-        
-         this.events.push(new Event(eventData.title, null, null, null,eventData._id));
+
+        this.events.push(new Event(eventData.title, null, null, null, eventData._id));
       })
       if (this.contentsLoaded()) {
         this.loader.dismiss();
@@ -71,13 +73,28 @@ export class ProfilePage {
       console.log(err);
     })
   }
-  deleteEvent(id){
- this.eventService.deleteEvent(id).subscribe(response => {
-   
-      console.log(this.success);
-         },
+
+  deleteEvent(id) {
+    let successMessage = "Event Deleted";
+    let errorMessage = "Failed to delete event";
+
+    this.createAndPresentLoader();
+    this.eventService.deleteEvent(id).subscribe(() => {
+      let toast = this.toastCtrl.create({
+        message: successMessage,
+        duration: 3000,
+        position: 'top'
+      })
+      toast.present();
+      this.fetchEvents();
+    },
       err => {
-       console.log(this.err);
+        let alert = this.alertCtrl.create({
+          title: 'Error !',
+          subTitle: errorMessage,
+          buttons: ['OK']
+        });
+        alert.present();
       }
     );
 
@@ -87,7 +104,7 @@ export class ProfilePage {
       item: event
     });
   }
- 
+
   displaySettings() {
     this.navCtrl.push(SettingsPage);
   }
