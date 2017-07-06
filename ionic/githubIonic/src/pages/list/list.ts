@@ -49,7 +49,7 @@ export class ListPage {
       afterFetch();
       this.events = [];
       response.forEach(eventFromBackend => {
-        this.events.push(new Event(eventFromBackend.title, null, null, null));
+        this.events.push(new Event(eventFromBackend.title, null, null, null,null));
       });
     }, err => {
       console.log(err);

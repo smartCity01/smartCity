@@ -17,11 +17,10 @@ export class SettingsPage {
     public navParams: NavParams) {
 
   }
-  SignOut() {
+   SignOut() {
     localStorage.removeItem('user-token');
     localStorage.removeItem('refresh-token');
     let userData = localStorage.getItem('userData');
-
     if (userData) {
       localStorage.removeItem('userData')
     }

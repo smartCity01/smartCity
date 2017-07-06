@@ -3,7 +3,8 @@ export class Event {
         public title: String,
         public time: number,
         public endTime: number,
-        public venue: String) {
+        public venue: String,
+        public id:String) {
 
     }
 

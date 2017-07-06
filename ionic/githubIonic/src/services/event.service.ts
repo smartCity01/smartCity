@@ -45,6 +45,12 @@ export class EventService {
     return this.http.get(this.Url + '/timeline', this.getHeaders())
       .map((res: Response) => res.json());
   }
+  //delete a specific event by it's id
+  deleteEvent(id) {
+    return this.http.delete(this.Url + '/' + id, this.getHeaders())
+      .map((res: Response) => res.json())
+
+  }
 
   private getHeaders() {
     // create authorization header with token
