@@ -10,9 +10,7 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
     <h2 text-center>
         Details
     </h2>
@@ -27,13 +25,11 @@
             <ion-label fixed>Email</ion-label>
         </ion-item>
     </ion-list>
-
     <h3 text-center>
         Your Events
     </h3>
     <ion-list>
-        <ion-item-sliding *ngFor="let event of events">
-    
+        <ion-item-sliding *ngFor="let event of events">    
       <button ion-item  (click)="itemTapped(event)">
       <ion-icon name="wifi" item-left></ion-icon>
       {{event.title}}
@@ -41,15 +37,9 @@
         {{event.title}}
       </div>
       </button>
-    
-
-
-    <ion-item-options side="right">
+        <ion-item-options side="right">
       <button ion-button color="danger" (click)="deleteEvent(event.id)"><ion-icon name="trash"> </ion-icon></button>
     </ion-item-options>
-  </ion-item-sliding>
-        
-    
+  </ion-item-sliding>    
     </ion-list>
-
 </ion-content>

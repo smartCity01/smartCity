@@ -14,10 +14,7 @@ export class EventService {
   // Resolve HTTP using the constructor
   constructor(private http: Http, private authService: AuthService) { }
   // private instance variable to hold base url
-  private Url = UrlProvider.url + '/api/events';
-   
-   
-  
+  private Url = UrlProvider.url + '/api/events';    
   // post event to server
   createEvent(title, time, endTime, venue): Observable<any> {
     //pass the parameter to the data properties
@@ -36,7 +33,6 @@ export class EventService {
       // handle errors if any
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
   }
-
   // method to get all events created by a user
   getUserEvents() {
     return this.http.get(this.Url, this.getHeaders())
@@ -50,10 +46,8 @@ export class EventService {
   //delete a specific event by it's id
   deleteEvent(id){
         return this.http.delete(this.Url+'/' + id, this.getHeaders())
-      .map((res: Response) => res.json())
-      
-  }
- 
+      .map((res: Response) => res.json())      
+  } 
   private getHeaders() {
     // create authorization header with token
     let currentUser = localStorage.getItem('user-token');

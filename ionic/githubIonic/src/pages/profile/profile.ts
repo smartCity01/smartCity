@@ -8,7 +8,6 @@ import { User } from './../../model/user';
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
 
-
 @Component({
   selector: 'profile',
   templateUrl: 'profile.html'
@@ -18,7 +17,7 @@ export class ProfilePage {
   events: Event[];
   loader;
   success="Event Deleted"
-  err="Event not Deleted"
+  err="Error"
   id:String;
   constructor(
     public navCtrl: NavController,
@@ -53,8 +52,6 @@ export class ProfilePage {
       this.fetchEvents();
     });
   }
-
-
   fetchEvents() {
     this.eventService.getUserEvents().subscribe(response => {
       this.events = [];
@@ -86,8 +83,7 @@ export class ProfilePage {
     this.navCtrl.push(EventDetailsPage, {
       item: event
     });
-  }
- 
+  } 
   displaySettings() {
     this.navCtrl.push(SettingsPage);
   }
