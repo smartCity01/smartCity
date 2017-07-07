@@ -1,3 +1,4 @@
+import { EventInfo } from './../pages/event-info/event-info';
 import { SettingsPage } from './../pages/settings/settings';
 import { RefresherService } from './../services/refresher.service';
 import { AccountService } from './../util/account.service';
@@ -15,9 +16,9 @@ import { MyApp } from './app.component';
 import { LocationsPage } from '../pages/locations/locations';
 import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ListPage } from '../pages/list/list';
-import { HttpModule, JsonpModule } from '@angular/http'; //T 
+import { HttpModule, JsonpModule } from '@angular/http'; //T
 
-// T- Imports for loading and configuring the in-memory web api 
+// T- Imports for loading and configuring the in-memory web api
 //import { InMemoryWebApiModule} from 'angular-in-memory-web-api';// <?
 
 
@@ -28,15 +29,16 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     EventDetailsPage,
     ListPage,
     LoginPage,
-    ProfilePage,   
+    ProfilePage,
     SignupPage,
     NewEventPage,
-    SettingsPage
+    SettingsPage,
+    EventInfo
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    HttpModule, //T 
-    //InMemoryWebApiModule.forRoot(UsersService), //T < ?? 
+    HttpModule, //T
+    //InMemoryWebApiModule.forRoot(UsersService), //T < ??
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAERgyQu6HKSwcPv0uwOGOvsIbYQKfsn5Y'
     })

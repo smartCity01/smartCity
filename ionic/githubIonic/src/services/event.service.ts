@@ -36,8 +36,8 @@ export class EventService {
   }
 
   // method to get all events created by a user
-  getUserEvents() {
-    return this.http.get(this.Url, this.getHeaders())
+  getUserEvents(id) {
+    return this.http.get(this.Url + '/user-events/' + id, this.getHeaders())
       .map((res: Response) => res.json());
   }
 
