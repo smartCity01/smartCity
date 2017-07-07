@@ -10,7 +10,7 @@ export class RefresherService {
     private accountService: AccountService
   ) {
     this.refresher = new Subject();
-    Observable.timer(1000, 7000).subscribe(data => {
+    Observable.timer(1000, 90000).subscribe(data => {
       if (accountService.isLoggedIn()) {
         this.refresher.next(data);
       }

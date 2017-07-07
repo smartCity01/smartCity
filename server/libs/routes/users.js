@@ -30,9 +30,38 @@ router.get('/info', passport.authenticate('bearer', { session: false }),
         // and used in access control checks.  For illustrative purposes, this
         // example simply returns the scope in the response.
         res.json({
-            user_id: req.user.userId,
-            name: req.user.username,
+            _id: req.user.userId,
+            username: req.user.username,
             scope: req.authInfo.scope
+        });
+    }
+);
+
+router.get('/userinfo/:id', passport.authenticate('bearer', { session: false }),
+    function(req, res) {
+        User.findOne({ _id: req.params.id }, (err, user) => {
+            if (!user) {
+                res.statusCode = 404;
+
+                return res.json({
+                    error: 'Not found'
+                });
+            }
+
+            if (!err) {
+                return res.json({
+                    status: 'OK',
+                    user: user
+                });
+            } else {
+                res.statusCode = 500;
+                log.error('Internal error(%d): %s', res.statusCode, err.message);
+
+                return res.json({
+                    error: 'Server error'
+                });
+            }
+
         });
     }
 );

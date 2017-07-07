@@ -37,11 +37,6 @@ export class ListPage {
     });
 
   }
-  itemTapped(event) {
-    this.navCtrl.push(EventDetailsPage, {
-      item: event
-    });
-  }
 
   fetchTimelineEvents(afterFetch: Function) {
     this.eventService.getAllEvents().subscribe(response => {
@@ -49,7 +44,7 @@ export class ListPage {
       afterFetch();
       this.events = [];
       response.forEach(eventFromBackend => {
-        this.events.push(new Event(eventFromBackend.title, null, null, null,eventFromBackend.id));
+        this.events.push(new Event(eventFromBackend.title, eventFromBackend.hostName, eventFromBackend.host, null, null, null, null));
       });
     }, err => {
       console.log(err);
