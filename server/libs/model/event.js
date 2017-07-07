@@ -10,11 +10,16 @@ var Event = new Schema({
         type: String,
         required: true
     },
+    hostName: {
+        type: String,
+        required: true
+    },
     location: {
         longitude: {
             type: Number,
             required: false
-        }, latitude: {
+        },
+        latitude: {
             type: Number,
             required: false
         },

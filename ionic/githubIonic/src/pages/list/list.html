@@ -17,14 +17,7 @@
         </ion-refresher-content>
     </ion-refresher>
     <ion-list>
-        <button ion-item *ngFor="let event of events" (click)="itemTapped(event)">
-      <h2>{{event.title}}</h2>
-      <p>test</p>
-        <div item-content>
-        <ion-avatar item-end>
-      <img src="http://i.imgur.com/U79QTNob.jpg">
-        </ion-avatar>
-        </div>
-    </button>
+        <event-info *ngFor="let event of events" [event]="event">
+        </event-info>
     </ion-list>
 </ion-content>

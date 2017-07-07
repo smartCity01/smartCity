@@ -1,4 +1,5 @@
 // Imports
+import { UrlProvider } from "../util/url-provider";
 import { Injectable } from '@angular/core';
 //import {Http, Response, Headers, RequestOptions} from '@angular/http';
 
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 //Import RxJs required methods
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { UrlProvider } from "../util/url-provider";
+
 
 @Injectable()
 export class AuthService {
