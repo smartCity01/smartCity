@@ -26,7 +26,12 @@ var Event = new Schema({
     imageUrl: {
         type: String,
         required: false
+    },
+    venue: {
+        type: String,
+        required: false
     }
+   
 });
 
 module.exports = mongoose.model('Event', Event);

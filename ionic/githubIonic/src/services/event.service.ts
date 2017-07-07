@@ -17,13 +17,14 @@ export class EventService {
     private Url = 'http://localhost:1337/api/events';
 
     // post event to server
-    createEvent(title, time, endTime, venue): Observable<any> {
+    createEvent(title, time, endTime, venue, description): Observable<any> {
         //pass the parameter to the data properties
         let data = {
             "title": title,
             "time": time,
             "endTime": endTime,
-            "venue": venue
+            "venue": venue,
+            "description": description
         }
         //place data object in readable JSON format to be sent to the server
         let body = JSON.stringify(data);

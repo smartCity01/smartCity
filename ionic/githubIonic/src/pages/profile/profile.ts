@@ -34,7 +34,7 @@ export class ProfilePage {
     this.eventService.getUserEvents().subscribe(response => {
       this.events = [];
       response.forEach(event => {
-        this.events.push(new Event(event.title, null, null, null));
+        this.events.push(new Event(event.title, event.time, event.endtime, event.venue, event.description));
       })
     }, err => {
       console.log(err);
