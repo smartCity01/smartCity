@@ -41,7 +41,8 @@ export class LoginPage {
         message: 'Login Successful',
         duration: 3000,
         position: 'top'
-      })
+      });
+      this.userService.getCurrentUserInfo().subscribe();
       toast.present();
     }, err => {
       let message = 'Cannot Login';
