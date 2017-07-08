@@ -44,7 +44,7 @@
     </ion-item-options>
   </ion-item-sliding>    
             <ion-item-options side="right">
-                <button ion-button color="danger" (click)="deleteEvent(event.id)"><ion-icon name="trash"> </ion-icon></button>
+                <button *ngIf="isUsersProfile()" ion-button color="danger" (click)="deleteEvent(event.id)"><ion-icon name="trash"> </ion-icon></button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>

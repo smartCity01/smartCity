@@ -39,7 +39,8 @@ export class UserService {
       'Authorization': 'Bearer ' + token
     });
     return this.http.get(this.Url + '/info', { headers: head })
-      .map((res: Response) => res.json());
+      .map((res: Response) => res.json())
+      .map(response => localStorage.setItem('userData', JSON.stringify(response)));
   }
 
   getUserInfo(id) {

@@ -71,6 +71,10 @@ export class ProfilePage {
     this.loader.present();
   }
 
+  isUsersProfile() {
+    return !this.id || this.id === JSON.parse(localStorage.getItem('userData'))._id;
+  }
+
   fetchEvents() {
     this.eventService.getUserEvents(this.currentUser._id).subscribe(response => {
       this.events = [];
@@ -123,6 +127,6 @@ export class ProfilePage {
   }
 
   contentsLoaded() {
-    return localStorage.getItem('userData') && this.events;
+    return this.currentUser && this.events;
   }
 }
