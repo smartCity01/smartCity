@@ -1,3 +1,4 @@
+import { SettingsPage } from './../pages/settings/settings';
 import { RefresherService } from './../services/refresher.service';
 import { AccountService } from './../util/account.service';
 import { EventService } from './../services/event.service';
@@ -27,9 +28,10 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     EventDetailsPage,
     ListPage,
     LoginPage,
-    ProfilePage,
+    ProfilePage,   
     SignupPage,
-    NewEventPage
+    NewEventPage,
+    SettingsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -46,6 +48,7 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     EventDetailsPage,
     ListPage,
     ProfilePage,
+    SettingsPage,
     LoginPage,
     SignupPage,
     NewEventPage

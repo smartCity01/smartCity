@@ -1,5 +1,6 @@
 {
-  "name": "githubIonic",
-  "app_id": "",
-  "type": "ionic-angular"
+    "name": "TunUp",
+    "app_id": "",
+    "v2": true,
+    "typescript": true
 }
