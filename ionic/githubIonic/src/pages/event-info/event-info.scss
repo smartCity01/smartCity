@@ -1,0 +1,27 @@
+event-info {
+    .poster {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        height: 300px;
+    }
+    .poster-container {
+        width: 40vh;
+        height: 40vh;
+        overflow: hidden;
+        margin: 5px;
+        background: black;
+    }
+    .pull-right {
+        float: right !important;
+    }
+    .user-bar {
+        margin-bottom: 5px;
+    }
+    .description {
+        width: 90%;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        padding: 5px;
+    }
+}

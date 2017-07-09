@@ -27,21 +27,35 @@ export class ProfilePage {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private refresherService: RefresherService) {
-
+    if (navParams.get('id')) {
+      this.id = navParams.get('id');
+    }
     if (!this.contentsLoaded()) {
       this.createAndPresentLoader();
     }
-    this.fetchEvents();
-    if (!localStorage.getItem('userData')) {
-      this.userService.getUserInfo().subscribe(response => {
-        localStorage.setItem('userData', JSON.stringify(response));
+
+    if (!this.id) {
+      if (!localStorage.getItem('userData')) {
+        this.userService.getCurrentUserInfo().subscribe(response => {
+          localStorage.setItem('userData', JSON.stringify(response));
+          this.currentUser = JSON.parse(localStorage.getItem('userData'));
+          this.fetchEvents();
+          if (this.contentsLoaded()) {
+            this.loader.dismiss();
+          }
+        });
+      } else {
         this.currentUser = JSON.parse(localStorage.getItem('userData'));
+        this.fetchEvents();
+      }
+    } else {
+      this.userService.getUserInfo(this.id).subscribe(response => {
+        this.currentUser = response.user;
+        this.fetchEvents();
         if (this.contentsLoaded()) {
           this.loader.dismiss();
         }
       });
-    } else {
-      this.currentUser = JSON.parse(localStorage.getItem('userData'));
     }
 
     refresherService.refresher.subscribe(() => {
@@ -57,14 +71,15 @@ export class ProfilePage {
     this.loader.present();
   }
 
+  isUsersProfile() {
+    return !this.id || this.id === JSON.parse(localStorage.getItem('userData'))._id;
+  }
+
   fetchEvents() {
-    this.eventService.getUserEvents().subscribe(response => {
+    this.eventService.getUserEvents(this.currentUser._id).subscribe(response => {
       this.events = [];
       response.forEach(res => {
-        localStorage.setItem('eventData', JSON.stringify(res));
-        let eventData = JSON.parse(localStorage.getItem('eventData'));
-
-        this.events.push(new Event(eventData.title, eventData.time, eventData.endtime, eventData.venue, eventData.description, eventData._id));
+        this.events.push(new Event(res.title, res.hostName, res.host, res.time, res.endtime, res.venue, res.description, res._id));
       })
       if (this.contentsLoaded()) {
         this.loader.dismiss();
@@ -87,6 +102,7 @@ export class ProfilePage {
       })
       toast.present();
       this.fetchEvents();
+      this.refresherService.refresh();
     },
       err => {
         let alert = this.alertCtrl.create({
@@ -110,6 +126,6 @@ export class ProfilePage {
   }
 
   contentsLoaded() {
-    return localStorage.getItem('userData') && this.events;
+    return this.currentUser && this.events;
   }
 }

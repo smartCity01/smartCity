@@ -7,7 +7,7 @@ var log = require(libs + 'log')(module);
 
 var db = require(libs + 'db/mongoose');
 var Event = require(libs + 'model/event');
-
+var User = require(libs + 'model/user');
 
 router.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -24,9 +24,9 @@ router.use(function(req, res, next) {
 });
 
 
-router.get('/', passport.authenticate('bearer', { session: false }), function(req, res) {
+router.get('/user-events/:id', passport.authenticate('bearer', { session: false }), function(req, res) {
 
-    Event.find({ host: req.user.id }, function(err, events) {
+    Event.find({ host: req.params.id }, function(err, events) {
         if (!err) {
             return res.json(events);
         } else {
@@ -60,40 +60,44 @@ router.get('/timeline', passport.authenticate('bearer', { session: false }), fun
 });
 
 
-router.post('/', passport.authenticate('bearer', { session: false }), function (req, res) {
+router.post('/', passport.authenticate('bearer', { session: false }), function(req, res) {
 
-	var event = new Event({
-		title: req.body.title,
-		host: req.user.id,
-		description: req.body.description,
-		location: req.body.location,
-		venue: req.body.venue
-	});
+    User.findById(req.user.id, (err, user) => {
 
-	event.save(function (err) {
-		if (!err) {
-			log.info("New event created with id: %s", event.id);
-			return res.json({
-				status: 'OK',
-				event: event
-			});
-		} else {
-			if (err.name === 'ValidationError') {
-				res.statusCode = 400;
-				res.json({
-					error: 'Validation error'
-				});
-			} else {
-				res.statusCode = 500;
+        var event = new Event({
+            title: req.body.title,
+            hostName: user.username,
+            host: req.user.id,
+            description: req.body.description,
+            location: req.body.location,
+			venue: req.body.venue
+        });
 
-				log.error('Internal error(%d): %s', res.statusCode, err.message);
+        event.save(function(err) {
+            if (!err) {
+                log.info("New event created with id: %s", event.id);
+                return res.json({
+                    status: 'OK',
+                    event: event
+                });
+            } else {
+                if (err.name === 'ValidationError') {
+                    res.statusCode = 400;
+                    res.json({
+                        error: 'Validation error'
+                    });
+                } else {
+                    res.statusCode = 500;
 
-				res.json({
-					error: 'Server error'
-				});
-			}
-		}
-	});
+                    log.error('Internal error(%d): %s', res.statusCode, err.message);
+
+                    res.json({
+                        error: 'Server error'
+                    });
+                }
+            }
+        });
+    });
 });
 
 router.get('/:id', passport.authenticate('bearer', { session: false }), function(req, res) {

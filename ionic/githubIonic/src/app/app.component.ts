@@ -60,9 +60,7 @@ export class MyApp {
       let modal = this.modalCtrl.create(LoginPage);
       modal.present();
     } else {
-      this.userService.getUserInfo().subscribe(response => {
-        localStorage.setItem('userData', JSON.stringify(response));
-      })
+      this.userService.getCurrentUserInfo().subscribe();
     }
   }
 

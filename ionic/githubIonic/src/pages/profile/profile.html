@@ -1,14 +1,14 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-navbar>
         <ion-title>
             Account
         </ion-title>
-        <ion-buttons start>
+        <ion-buttons end>
             <button ion-button (click)="displaySettings()">
              <ion-icon name="settings"></ion-icon>
            </button>
         </ion-buttons>
-    </ion-toolbar>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
@@ -21,7 +21,7 @@
             <ion-label fixed>Full Name</ion-label>
         </ion-item>
         <ion-item>
-            Username : {{currentUser.name}}
+            Username : {{currentUser.username}}
         </ion-item>
         <ion-item>
             <ion-label fixed>Email</ion-label>
@@ -41,7 +41,7 @@
       </div>
       </button>
             <ion-item-options side="right">
-                <button ion-button color="danger" (click)="deleteEvent(event.id)"><ion-icon name="trash"> </ion-icon></button>
+                <button *ngIf="isUsersProfile()" ion-button color="danger" (click)="deleteEvent(event.id)"><ion-icon name="trash"> </ion-icon></button>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>

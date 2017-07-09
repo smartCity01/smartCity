@@ -32,15 +32,27 @@ export class UserService {
     return this.authService.signIn(username, password);
   }
 
-  getUserInfo() {
+  getCurrentUserInfo() {
     let token = localStorage.getItem('user-token');
     let head = new Headers({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token
     });
     return this.http.get(this.Url + '/info', { headers: head })
+      .map((res: Response) => res.json())
+      .map(response => localStorage.setItem('userData', JSON.stringify(response)));
+  }
+
+  getUserInfo(id) {
+    let token = localStorage.getItem('user-token');
+    let head = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    });
+    return this.http.get(this.Url + '/userinfo/' + id, { headers: head })
       .map((res: Response) => res.json());
   }
+
 
   signUp(username, password, email): Observable<Response> {
     let data = {
