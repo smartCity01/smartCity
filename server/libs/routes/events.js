@@ -69,7 +69,9 @@ router.post('/', passport.authenticate('bearer', { session: false }), function(r
             hostName: user.username,
             host: req.user.id,
             description: req.body.description,
-            location: req.body.location
+            location: req.body.location,
+            venue: req.body.venue
+
         });
 
         event.save(function(err) {
@@ -158,6 +160,7 @@ router.put('/:id', passport.authenticate('bearer', { session: false }), function
         event.description = req.body.description;
         event.host = req.user.id;
         event.description = req.body.images;
+        event.venue = req.body.venue;
 
         event.save(function(err) {
             if (!err) {

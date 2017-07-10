@@ -1,6 +1,6 @@
 import { RefresherService } from './../../services/refresher.service';
 import { EventService } from './../../services/event.service';
-//mport { EventDetailsPage } from './../event-details/event-details';
+//import { EventDetailsPage } from './../event-details/event-details';
 import { Component } from '@angular/core';
 import { ViewController, ModalController, ToastController } from 'ionic-angular';
 
@@ -15,6 +15,7 @@ export class NewEventPage {
   time: number;
   endTime: number;
   venue: String;
+  description: String;
   success = "Event was created successfully";
   error = "Error! unable to create event";
   constructor(
@@ -27,7 +28,7 @@ export class NewEventPage {
 
   //method to create event
   create() {
-    this.eventService.createEvent(this.title, this.time, this.endTime, this.venue).subscribe(res => {
+    this.eventService.createEvent(this.title, this.time, this.endTime, this.venue, this.description).subscribe(res => {
       this.viewCtrl.dismiss();
       let toast = this.toastCtrl.create({
         message: 'New Event Created',

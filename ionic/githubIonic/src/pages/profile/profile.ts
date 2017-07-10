@@ -79,7 +79,7 @@ export class ProfilePage {
     this.eventService.getUserEvents(this.currentUser._id).subscribe(response => {
       this.events = [];
       response.forEach(res => {
-        this.events.push(new Event(res.title, res.hostName, res.host, null, null, null, res._id));
+        this.events.push(new Event(res.title, res.hostName, res.host, res.time, res.endtime, res.venue, res.description, res._id));
       })
       if (this.contentsLoaded()) {
         this.loader.dismiss();

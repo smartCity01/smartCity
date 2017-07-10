@@ -44,7 +44,7 @@ export class ListPage {
       afterFetch();
       this.events = [];
       response.forEach(eventFromBackend => {
-        this.events.push(new Event(eventFromBackend.title, eventFromBackend.hostName, eventFromBackend.host, null, null, null, null));
+        this.events.push(new Event(eventFromBackend.title, eventFromBackend.hostName, eventFromBackend.host,eventFromBackend.time, eventFromBackend.endtime, eventFromBackend.venue, eventFromBackend.description, eventFromBackend.id));
       });
     }, err => {
       console.log(err);
