@@ -69,8 +69,7 @@ router.post('/', passport.authenticate('bearer', { session: false }), function(r
             hostName: user.username,
             host: req.user.id,
             description: req.body.description,
-            location: req.body.location,
-			venue: req.body.venue
+            location: req.body.location
         });
 
         event.save(function(err) {
@@ -128,48 +127,62 @@ router.get('/:id', passport.authenticate('bearer', { session: false }), function
     });
 });
 
-router.put('/:id', passport.authenticate('bearer', { session: false }), function (req, res) {
-	var eventId = req.params.id;
+router.delete('/:id', passport.authenticate('bearer', { session: false }), function(req, res) {
+    var id = req.params.id;
+    Event.findById(id).remove(function(err, obj) {
+        if (!err) {
+            return res.json({
+                status: 'OK',
+                response: obj
+            });
+        }
+        console.log(err);
+        return res.status(500).send();
+    });
 
-	Article.findById(eventId, function (err, event) {
-		if (!event) {
-			res.statusCode = 404;
-			log.error('Article with id: %s Not Found', eventId);
-			return res.json({
-				error: 'Not found'
-			});
-		}
+});
 
-		event.title = req.body.title;
-		event.description = req.body.description;
-		event.host = req.user.id;
-		event.description = req.body.images;
-		event.venue = req.body.venue;
+router.put('/:id', passport.authenticate('bearer', { session: false }), function(req, res) {
+    var eventId = req.params.id;
 
-		event.save(function (err) {
-			if (!err) {
-				log.info("Event with id: %s updated", article.id);
-				return res.json({
-					status: 'OK',
-					article: article
-				});
-			} else {
-				if (err.name === 'ValidationError') {
-					res.statusCode = 400;
-					return res.json({
-						error: 'Validation error'
-					});
-				} else {
-					res.statusCode = 500;
+    Article.findById(eventId, function(err, event) {
+        if (!event) {
+            res.statusCode = 404;
+            log.error('Article with id: %s Not Found', eventId);
+            return res.json({
+                error: 'Not found'
+            });
+        }
 
-					return res.json({
-						error: 'Server error'
-					});
-				}
-				log.error('Internal error (%d): %s', res.statusCode, err.message);
-			}
-		});
-	});
+        event.title = req.body.title;
+        event.description = req.body.description;
+        event.host = req.user.id;
+        event.description = req.body.images;
+
+        event.save(function(err) {
+            if (!err) {
+                log.info("Event with id: %s updated", article.id);
+                return res.json({
+                    status: 'OK',
+                    article: article
+                });
+            } else {
+                if (err.name === 'ValidationError') {
+                    res.statusCode = 400;
+                    return res.json({
+                        error: 'Validation error'
+                    });
+                } else {
+                    res.statusCode = 500;
+
+                    return res.json({
+                        error: 'Server error'
+                    });
+                }
+                log.error('Internal error (%d): %s', res.statusCode, err.message);
+            }
+        });
+    });
 });
 
 module.exports = router;
