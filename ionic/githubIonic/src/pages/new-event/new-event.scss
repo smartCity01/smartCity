@@ -1,3 +1,20 @@
 new-event {
-
+    .predictions {
+        .item-md,
+        .item-ios {
+            color: gray;
+            font-weight: bold;
+            font-size: 1.0em;
+        }
+    }
+    textarea {
+        height: 20vh;
+    }
+    .item-text-wrap {
+        input {
+            font-size: 0.8em;
+            white-space: normal;
+            overflow: auto;
+        }
+    }
 }

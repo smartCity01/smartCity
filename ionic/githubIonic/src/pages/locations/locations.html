@@ -1,17 +1,12 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Around Me </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-buttons end>
+            <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Refresh Events</button>
+        </ion-buttons>
+        <ion-title>Around Me </ion-title>
+    </ion-navbar>
 </ion-header>
 
-
 <ion-content>
-
-  <sebm-google-map [latitude]="lat" [longitude]="lng">
-    <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
-  </sebm-google-map>
-
+    <div #map id="map"></div>
 </ion-content>

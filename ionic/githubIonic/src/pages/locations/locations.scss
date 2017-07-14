@@ -1,5 +1,12 @@
-locations {
-.sebm-google-map-container {
-  height: 100%;
-}
+.ios,
+.md {
+    locations-page {
+        .scroll {
+            height: 100%
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    }
 }

@@ -15,28 +15,33 @@
 <ion-content>
     <ion-list>
         <ion-item>
-            <ion-label>Title</ion-label>
+            <ion-label floating>Title</ion-label>
             <ion-input type="text" value="" [(ngModel)]="title"></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-label>Time</ion-label>
-            <ion-input type="text" value="" [(ngModel)]="time"></ion-input>
+            <ion-label floating>Time</ion-label>
+            <ion-datetime max="2025" displayFormat="MMM DD, YYYY hh:mm a" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" value="" [(ngModel)]="time"></ion-datetime>
         </ion-item>
 
         <ion-item>
-            <ion-label>EndTime</ion-label>
-            <ion-input type="text" value="" [(ngModel)]="endTime"></ion-input>
+            <ion-label floating>EndTime</ion-label>
+            <ion-datetime max="2025" displayFormat="MMM DD, YYYY hh:mm a" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55" value="" [(ngModel)]="endTime"></ion-datetime>
         </ion-item>
 
         <ion-item>
-            <ion-label>Venue</ion-label>
-            <ion-input type="text" value="" [(ngModel)]="venue"></ion-input>
+            <ion-label floating>Venue</ion-label>
+            <ion-input class="item-text-wrap" type="text" value="" [(ngModel)]="venue" (keyup)="onInputPress($event)" #display></ion-input>
         </ion-item>
+        <ion-list *ngIf="predictions" class="predictions">
+            <ion-item *ngFor="let prediction of predictions" (click)="clickedLocation(prediction)">
+                {{prediction.description}}
+            </ion-item>
+        </ion-list>
 
         <ion-item>
-            <ion-label>Description</ion-label>
-            <ion-input type="text" value="" [(ngModel)]="description"></ion-input>
+            <ion-label floating>Description</ion-label>
+            <ion-textarea type="text" value="" [(ngModel)]="description"></ion-textarea>
         </ion-item>
 
     </ion-list>

@@ -5,6 +5,15 @@ event-info {
         margin-right: auto;
         height: 300px;
     }
+    h2 {
+        display: inline-block;
+        text-align: center;
+        padding: 0.3em;
+        vertical-align: top;
+    }
+    ion-avatar {
+        display: inline-block;
+    }
     .poster-container {
         width: 40vh;
         height: 40vh;
@@ -15,8 +24,14 @@ event-info {
     .pull-right {
         float: right !important;
     }
-    .user-bar {
-        margin-bottom: 5px;
+    .item-ios,
+    .item-md {
+        .user-bar {
+            margin-bottom: 5px;
+            p {
+                color: white;
+            }
+        }
     }
     .description {
         width: 90%;
