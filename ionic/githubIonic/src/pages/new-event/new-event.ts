@@ -18,6 +18,7 @@ export class NewEventPage {
   endTime: number;
   venue: String;
   description: String;
+  location;
   geocoder = new google.maps.Geocoder();
   service = new google.maps.places.AutocompleteService();
   predictions;
@@ -50,7 +51,7 @@ export class NewEventPage {
   //method to create event
   create() {
     console.log(this.venue);
-    this.eventService.createEvent(this.title, this.time, this.endTime, this.venue, this.description).subscribe(res => {
+    this.eventService.createEvent(this.title, this.time, this.endTime, this.venue, this.description, this.location).subscribe(res => {
       this.viewCtrl.dismiss();
       let toast = this.toastCtrl.create({
         message: 'New Event Created',
@@ -69,13 +70,19 @@ export class NewEventPage {
   clickedLocation(prediction) {
     this.venue = prediction.description;
     this.predictions = null;
+    this.cd.detectChanges();
     this.geocoder.geocode({ 'placeId': prediction.place_id }, (responses, status) => {
       if (status == 'OK') {
+        this.cd.detectChanges();
         var lat = responses[0].geometry.location.lat();
         var lng = responses[0].geometry.location.lng();
-        console.log(lat, lng);
+        this.location = {
+          latitude: lat,
+          longitude: lng
+        }
       }
     });
+
   }
 
 

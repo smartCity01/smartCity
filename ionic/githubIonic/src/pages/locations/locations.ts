@@ -1,5 +1,7 @@
+import { Event } from './../../model/event';
+import { EventService } from './../../services/event.service';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 
 declare var google;
@@ -12,25 +14,65 @@ export class LocationsPage {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  loading;
+  events: Event[];
+  backendEvents;
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    public eventService: EventService,
+    public loadCtrl: LoadingController) {
+    this.loading = loadCtrl.create();
   }
 
   ionViewDidLoad() {
     this.loadMap();
+    this.fetchMapEvents();
   }
 
   addMarker() {
 
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
-    });
-    let content = "<h4>Information!</h4>";
+    /*  let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: this.map.getCenter()
+      });
+      let content = "<h4>Information!</h4>";
 
-    this.addInfoWindow(marker, content);
+      this.addInfoWindow(marker, content);*/
+    this.fetchMapEvents();
 
+  }
+
+  fetchMapEvents() {
+    this.eventService.getAllEvents().subscribe(response => {
+      this.loading.dismiss();
+      if (this.backendEvents !== response) {
+        this.backendEvents = response;
+        this.events = [];
+        response.forEach(eventFromBackend => {
+          this.events.push(new Event(eventFromBackend.title, eventFromBackend.hostName, eventFromBackend.host, eventFromBackend.time, eventFromBackend.endtime, eventFromBackend.venue, eventFromBackend.description, eventFromBackend.id));
+          this.createMarkerForEvent(eventFromBackend);
+        });
+
+      }
+    }, err => {
+      console.log(err);
+      this.loading.dismiss();
+    })
+  }
+
+  createMarkerForEvent(event) {
+    if (event.location) {
+      let marker = new google.maps.Marker({
+        position: { lat: event.location.latitude, lng: event.location.longitude },
+        map: this.map,
+        title: event.title
+      });
+      let content = "<h4>" + event.title + "</h4>";
+
+      this.addInfoWindow(marker, content);
+    }
   }
 
   loadMap() {
