@@ -9,6 +9,11 @@
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
             </button>
         </ion-buttons>
+        <ion-buttons end>
+            <button ion-button (click)="addImage()">
+        <span color="primary">Add Poster</span>
+            </button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -42,6 +47,17 @@
         <ion-item>
             <ion-label floating>Description</ion-label>
             <ion-textarea type="text" value="" [(ngModel)]="description"></ion-textarea>
+        </ion-item>
+
+        <ion-item *ngIf="imageFileUrl" padding>
+            <ion-thumbnail item-start>
+                <img src="{{'file://'+ imageFileUrl}}">
+            </ion-thumbnail>
+            <h2>Poster</h2>
+            <button ion-button clear item-end icon-left (click)="clearImage()">
+            <ion-icon name="trash"></ion-icon>
+            Clear
+            </button>
         </ion-item>
 
     </ion-list>

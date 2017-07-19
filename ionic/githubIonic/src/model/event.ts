@@ -7,7 +7,9 @@ export class Event {
     public endTime: number,
     public venue: String,
     public description: String,
-    public id: String) {
+    public id: String,
+    public imageUrl: String
+  ) {
 
   }
 

@@ -7,7 +7,7 @@
         <p style="color:black;">November 5, 1955</p>
     </ion-item>
     <div (click)="itemTapped(event)">
-        <img src="http://i.imgur.com/TutN2uB.png">
+        <img *ngIf="event.imageUrl" src="{{event.imageUrl}}">
         <ion-card-content>
             <h2>{{event.title}}</h2>
             <p class="description">{{event.description}}</p>
