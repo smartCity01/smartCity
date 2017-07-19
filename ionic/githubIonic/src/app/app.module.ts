@@ -1,3 +1,4 @@
+import { ImagePicker } from '@ionic-native/image-picker';
 import { EventInfo } from './../pages/event-info/event-info';
 import { SettingsPage } from './../pages/settings/settings';
 import { RefresherService } from './../services/refresher.service';
@@ -17,6 +18,7 @@ import { LocationsPage } from '../pages/locations/locations';
 import { EventDetailsPage } from '../pages/event-details/event-details';
 import { ListPage } from '../pages/list/list';
 import { HttpModule, JsonpModule } from '@angular/http'; //T
+import { File } from '@ionic-native/file';
 
 // T- Imports for loading and configuring the in-memory web api
 //import { InMemoryWebApiModule} from 'angular-in-memory-web-api';// <?
@@ -62,6 +64,8 @@ import { HttpModule, JsonpModule } from '@angular/http'; //T
     UserService,
     AccountService,
     EventService,
+    ImagePicker,
+    File,
     RefresherService] //T
 
 })

@@ -17,7 +17,7 @@ export class EventService {
   private Url = UrlProvider.url + '/api/events';
 
   // post event to server
-  createEvent(title, time, endTime, venue, description, location): Observable<any> {
+  createEvent(title, time, endTime, venue, description, location, imageBinary): Observable<any> {
     //pass the parameter to the data properties
     let data = {
       "title": title,
@@ -25,7 +25,12 @@ export class EventService {
       "endTime": endTime,
       "venue": venue,
       "description": description,
-      "location": location
+      "location": location,
+      "imageBinary": null
+    }
+
+    if (imageBinary) {
+      data.imageBinary = imageBinary;
     }
     //place data object in readable JSON format to be sent to the server
     let body = JSON.stringify(data);

@@ -17,6 +17,7 @@ export class ProfilePage {
   events: Event[];
   loader;
   id: String;
+  private failedFetch;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -79,12 +80,23 @@ export class ProfilePage {
     this.eventService.getUserEvents(this.currentUser._id).subscribe(response => {
       this.events = [];
       response.forEach(res => {
-        this.events.push(new Event(res.title, res.hostName, res.host, res.time, res.endtime, res.venue, res.description, res._id));
+        this.events.push(new Event(
+          res.title,
+          res.hostName,
+          res.host,
+          res.time,
+          res.endtime,
+          res.venue,
+          res.description,
+          res._id,
+          res.imageUrl));
       })
       if (this.contentsLoaded()) {
         this.loader.dismiss();
       }
     }, err => {
+      this.failedFetch = true;
+      this.loader.dismiss();
       console.log(err);
     })
   }

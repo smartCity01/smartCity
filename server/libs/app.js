@@ -19,6 +19,7 @@ var events = require('./routes/events');
 var oauth = require('./routes/oauth');
 var app = express();
 
+app.use(bodyParser({ limit: '50mb' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -33,7 +34,7 @@ app.use('/api/events', events);
 app.use('/api/oauth/', oauth);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     res.status(404);
     log.debug('%s %d %s', req.method, res.statusCode, req.url);
     res.json({
@@ -43,7 +44,7 @@ app.use(function (req, res, next) {
 });
 
 // error handlers
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     log.error('%s %d %s', req.method, res.statusCode, err.message);
     res.json({

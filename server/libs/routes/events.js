@@ -8,6 +8,35 @@ var log = require(libs + 'log')(module);
 var db = require(libs + 'db/mongoose');
 var Event = require(libs + 'model/event');
 var User = require(libs + 'model/user');
+var cloudinary = require('cloudinary');
+
+var saveEvent = (event, res) => {
+    event.save(function(err) {
+        if (!err) {
+            log.info("New event created with id: %s", event.id);
+            return res.json({
+                status: 'OK',
+                event: event
+            });
+        } else {
+            if (err.name === 'ValidationError') {
+                res.statusCode = 400;
+                res.json({
+                    error: 'Validation error'
+                });
+            } else {
+                res.statusCode = 500;
+
+                log.error('Internal error(%d): %s', res.statusCode, err.message);
+
+                res.json({
+                    error: 'Server error'
+                });
+            }
+        }
+    });
+}
+
 
 router.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -63,43 +92,40 @@ router.get('/timeline', passport.authenticate('bearer', { session: false }), fun
 router.post('/', passport.authenticate('bearer', { session: false }), function(req, res) {
 
     User.findById(req.user.id, (err, user) => {
-
-        var event = new Event({
-            title: req.body.title,
-            hostName: user.username,
-            host: req.user.id,
-            description: req.body.description,
-            location: req.body.location,
-            venue: req.body.venue
-
+        cloudinary.config({
+            cloud_name: 'tunup',
+            api_key: '535145653862683',
+            api_secret: 'y0za1rZFXkKMdTBpYJlfCsB1WEU'
         });
 
-        event.save(function(err) {
-            if (!err) {
-                log.info("New event created with id: %s", event.id);
-                return res.json({
-                    status: 'OK',
-                    event: event
+        if (req.body.imageBinary) {
+            cloudinary.uploader.upload(req.body.imageBinary, (result) => {
+                var event = new Event({
+                    title: req.body.title,
+                    hostName: user.username,
+                    host: req.user.id,
+                    description: req.body.description,
+                    location: req.body.location,
+                    venue: req.body.venue,
+                    imageUrl: result.secure_url
                 });
-            } else {
-                if (err.name === 'ValidationError') {
-                    res.statusCode = 400;
-                    res.json({
-                        error: 'Validation error'
-                    });
-                } else {
-                    res.statusCode = 500;
+                saveEvent(event, res);
+            });
+        } else {
+            var event = new Event({
+                title: req.body.title,
+                hostName: user.username,
+                host: req.user.id,
+                description: req.body.description,
+                location: req.body.location,
+                venue: req.body.venue
+            });
+            saveEvent(event, res);
+        }
 
-                    log.error('Internal error(%d): %s', res.statusCode, err.message);
-
-                    res.json({
-                        error: 'Server error'
-                    });
-                }
-            }
-        });
     });
 });
+
 
 router.get('/:id', passport.authenticate('bearer', { session: false }), function(req, res) {
 
