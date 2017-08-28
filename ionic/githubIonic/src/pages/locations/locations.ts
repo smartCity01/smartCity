@@ -60,7 +60,8 @@ export class LocationsPage {
             eventFromBackend.venue,
             eventFromBackend.description,
             eventFromBackend.id,
-            eventFromBackend.imageUrl));
+            eventFromBackend.imageUrl,
+            eventFromBackend.commentCount));
           this.createMarkerForEvent(eventFromBackend);
         });
 

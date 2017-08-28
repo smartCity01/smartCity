@@ -3,6 +3,7 @@ import { Event } from './../../model/event';
 import { ProfilePage } from './../profile/profile';
 import { NavController } from 'ionic-angular';
 import { Component, Input } from '@angular/core';
+import { CommentPage } from "../comment/comment";
 
 
 @Component({
@@ -20,6 +21,11 @@ export class EventInfo {
     this.navCtrl.push(ProfilePage, {
       id: this.event.hostId
     })
+  }
+   displayComment(event) {
+    this.navCtrl.push(CommentPage,{
+     item:event 
+    });
   }
 
   itemTapped(event) {

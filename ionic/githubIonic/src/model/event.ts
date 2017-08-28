@@ -8,7 +8,8 @@ export class Event {
     public venue: String,
     public description: String,
     public id: String,
-    public imageUrl: String
+    public imageUrl: String,
+    public commentCount:number
   ) {
 
   }

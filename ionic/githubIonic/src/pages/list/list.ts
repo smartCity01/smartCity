@@ -51,8 +51,9 @@ export class ListPage {
           eventFromBackend.endtime,
           eventFromBackend.venue,
           eventFromBackend.description,
-          eventFromBackend.id,
-          eventFromBackend.imageUrl));
+          eventFromBackend._id,
+          eventFromBackend.imageUrl,
+          eventFromBackend.commentCount));
       });
     }, err => {
       console.log(err);
