@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Comments
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+      <span color="primary" showWhen="ios">Cancel</span>
+      <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+    </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list>
+        <ion-item-sliding *ngFor="let comment of comments">
+            <ion-item class="comment">
+                <ion-avatar item-start>
+                    <img src="http://i.imgur.com/TutN2uB.png">
+                </ion-avatar>
+                <h1 (click)="displayProfile(comment.authorId)">@{{comment.author}}</h1>
+                <button class="replybutton" ion-button clear small (click)="reply(comment.author)">
+             <div>reply</div>
+             <ion-icon name="redo" ></ion-icon>
+           </button>
+                <p>{{comment.text}}</p>
+            </ion-item>
+            <ion-item-options side="left">
+                <button *ngIf="isUsersProfile(comment.authorId)" ion-button (click)="edit(comment.id,comment.text)"><ion-icon name="create"> </ion-icon>Edit</button>
+            </ion-item-options>
+            <ion-item-options side="right">
+                <button *ngIf="isUsersProfile(comment.authorId)" ion-button color="danger" (click)="deleteComment(comment.id)"><ion-icon name="trash"></ion-icon>Delete</button>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item>
+            <ion-input type="text" placeholder="leave a comment" [(ngModel)]="text">{{text}}</ion-input>
+        </ion-item>
+    </ion-list>
+    <div>
+        <button *ngIf="isEdited==false" ion-button outline icon-right (click)="addComment()">
+            post
+            <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+        <button *ngIf="isEdited==true" ion-button outline (click)="editComment()">
+     Edit <ion-icon name="arrow-forward"></ion-icon>
+    </button>
+    </div>
+</ion-content>

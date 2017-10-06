@@ -35,7 +35,17 @@ var Event = new Schema({
     venue: {
         type: String,
         required: false
-    }
+    },
+    commentCount:{
+        type:Number,
+        default: 0,
+        required:true
+    },
+    comment: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment'
+    }]
+
    
 });
 

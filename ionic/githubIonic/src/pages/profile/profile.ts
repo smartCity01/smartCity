@@ -89,7 +89,8 @@ export class ProfilePage {
           res.venue,
           res.description,
           res._id,
-          res.imageUrl));
+          res.imageUrl,
+          res.commentCount));
       })
       if (this.contentsLoaded()) {
         this.loader.dismiss();
@@ -114,7 +115,7 @@ export class ProfilePage {
       })
       toast.present();
       this.fetchEvents();
-      this.refresherService.refresh();
+      
     },
       err => {
         let alert = this.alertCtrl.create({
