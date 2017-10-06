@@ -3,19 +3,19 @@ import { EventService } from './../../services/event.service';
 import { EventDetailsPage } from './../event-details/event-details';
 import { Event } from './../../model/event';
 import { Comment } from './../../model/comment';
-import { CommentService} from './../../services/comment.service';
+import { CommentService } from './../../services/comment.service';
 import { UserService } from './../../services/users.service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ModalController, AlertController, ToastController } from 'ionic-angular';
-import { ProfilePage} from './../profile/profile';
+import { NavController, NavParams, LoadingController, ModalController, AlertController, ToastController, ViewController } from 'ionic-angular';
+import { ProfilePage } from './../profile/profile';
 
 @Component({
   selector: 'comment',
   templateUrl: 'comment.html'
 })
 export class CommentPage {
-  text:String;
-  id:String;
+  text: String;
+  id: String;
   selectedItem: any;
   isEdited: boolean = false;
   comments: Comment[];
@@ -25,36 +25,40 @@ export class CommentPage {
   constructor(
     public navCtrl: NavController,
     private alertCtrl: AlertController,
-    public navParams:NavParams,
+    public navParams: NavParams,
     public eventService: EventService,
     public userService: UserService,
-    public commentService:CommentService,
+    public commentService: CommentService,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
+    private viewCtrl: ViewController,
     private refresherService: RefresherService
-    ) {
+  ) {
     this.selectedItem = navParams.get('item');
-     if (!this.contentsLoaded()) {
+    if (!this.contentsLoaded()) {
       this.createAndPresentLoader();
-    } 
-    this.fetchComments(); 
     }
-  fetchComments() {
+    this.fetchComments(null);
+  }
+  fetchComments(callback) {
     this.commentService.getAllComments(this.selectedItem.id).subscribe(response => {
+      if (callback) {
+        callback();
+      }
       this.comments = [];
       response.comment.forEach(res => {
-         this.comments.push(new Comment(
+        this.comments.push(new Comment(
           res._id,
           res.userBrief.author,
           res.userBrief.authorId,
           res.text));
-      }) 
-        if(this.contentsLoaded()) {
+      })
+      if (this.contentsLoaded()) {
         this.loader.dismiss();
-      }     
+      }
     }, err => {
-     this.failedFetch = true;
-     console.log(err);
+      this.failedFetch = true;
+      console.log(err);
     })
   }
 
@@ -66,77 +70,74 @@ export class CommentPage {
     this.loader.present();
   }
 
-  addComment(){
-  let successMessage = "added comment";
-  let errorMessage = "Failed to add comment";
-  if(this.text){
-  this.commentService
-      .addComment(this.text, this.selectedItem.id,JSON.parse(localStorage.getItem('userData'))).subscribe(res => {
-        let toast = this.toastCtrl.create({
-        message: successMessage,
-        duration: 3000,
-        position: 'top'
-      })
-      toast.present();
-        this.fetchComments();
-        this.text="";
-      },
-      err => {
-        let alert = this.alertCtrl.create({
-          title: 'Error !',
-          subTitle: errorMessage,
-          buttons: ['OK']
-        });
-        alert.present();
-      }
-      );}
+  doRefresh(refresher) {
+    this.fetchComments(() => refresher.complete())
   }
 
-  edit(id,text){
-    this.text=text;
+  addComment() {
+    let successMessage = "added comment";
+    let errorMessage = "Failed to add comment";
+    if (this.text) {
+      this.commentService
+        .addComment(this.text, this.selectedItem.id, JSON.parse(localStorage.getItem('userData'))).subscribe(res => {
+          let toast = this.toastCtrl.create({
+            message: successMessage,
+            duration: 3000,
+            position: 'top'
+          })
+          toast.present();
+          this.fetchComments(null);
+          this.text = "";
+        },
+        err => {
+          let alert = this.alertCtrl.create({
+            title: 'Error !',
+            subTitle: errorMessage,
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+        );
+    }
+  }
+
+  edit(id, text) {
+    this.text = text;
     this.isEdited = true;
-    this.id=id;
+    this.id = id;
   }
 
-  editComment(){
-    if(this.text){
-  this.commentService
-      .editComment(this.text, this.id,JSON.parse(localStorage.getItem('userData'))).subscribe(res => {
-        this.fetchComments();
-        this.text="";
-        this.isEdited=false;
-      },
-      err => {
-        console.log(err);
-      }
-      );}
-  } 
-  
-  updateCommentCount(){
-   this.commentService
-       .updateCount(this.selectedItem.id).subscribe(res => {
-       },
-      err => {
-        console.log(err);
-      });
+  editComment() {
+    if (this.text) {
+      this.commentService
+        .editComment(this.text, this.id, JSON.parse(localStorage.getItem('userData'))).subscribe(res => {
+          this.fetchComments(null);
+          this.text = "";
+          this.isEdited = false;
+        },
+        err => {
+          console.log(err);
+        }
+        );
+    }
   }
 
-  deleteComment(id){
-  let successMessage = "Comment Deleted";
-  let errorMessage = "Failed to delete comment";
-  this.createAndPresentLoader();
-  this.commentService
-      .deleteComment(id).subscribe(res => {
-       let toast = this.toastCtrl.create({
-        message: successMessage,
-        duration: 3000,
-        position: 'top'
-      })
-      toast.present();
-      this.fetchComments();
-       this.text="";
-       this.isEdited=false;
-       this.updateCommentCount();
+
+  deleteComment(id) {
+    let successMessage = "Comment Deleted";
+    let errorMessage = "Failed to delete comment";
+    this.createAndPresentLoader();
+    this.commentService
+      .deleteComment(id, this.selectedItem.id).subscribe(res => {
+        let toast = this.toastCtrl.create({
+          message: successMessage,
+          duration: 3000,
+          position: 'top'
+        })
+        toast.present();
+        this.fetchComments(null);
+        this.text = "";
+        this.isEdited = false;
       },
       err => {
         let alert = this.alertCtrl.create({
@@ -146,12 +147,17 @@ export class CommentPage {
         });
         alert.present();
       }
-      );     
-  } 
-  reply(author){
-    let recepient=author;  
-    this.text="@"+recepient;
-  } 
+      );
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  reply(author) {
+    let recepient = author;
+    this.text = "@" + recepient;
+  }
   contentsLoaded() {
     return this.comments;
   }

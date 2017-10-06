@@ -14,12 +14,12 @@ export class CommentService {
   // private instance variable to hold base url
   private Url = UrlProvider.url + '/api/comments';
 
-   addComment(text,id,userData): Observable<any> {
+  addComment(text, id, userData): Observable<any> {
     //pass the parameter to the data properties
     let data = {
       "text": text,
-      "id":id,
-      "userData":userData
+      "id": id,
+      "userData": userData
     }
 
     //place data object in readable JSON format to be sent to the server
@@ -33,19 +33,19 @@ export class CommentService {
   }
 
   // method to get all comments for a specific event
-    getAllComments(id) {
+  getAllComments(id) {
     return this.http.get(this.Url + '/' + id, this.getHeaders())
       .map((res: Response) => res.json());
   }
 
-   editComment(text,id,userData): Observable<any> {
+  editComment(text, id, userData): Observable<any> {
     //pass the parameter to the data properties
     let data = {
       "text": text,
-      "userData":userData
+      "userData": userData
     }
-    
-    
+
+
     //place data object in readable JSON format to be sent to the server
     let body = JSON.stringify(data);
 
@@ -56,16 +56,9 @@ export class CommentService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
   }
 
-  updateCount(id) {
-    let body
-    return this.http.put(this.Url + '/count/' + id,body, this.getHeaders())
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
-  
-  }
   //delete a specific comment by it's id
-  deleteComment(id) {
-    return this.http.delete(this.Url + '/' + id, this.getHeaders())
+  deleteComment(id, eventId) {
+    return this.http.delete(this.Url + '/event/' + eventId + '/comment/' + id, this.getHeaders())
       .map((res: Response) => res.json())
 
   }
