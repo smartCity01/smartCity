@@ -17,11 +17,11 @@ render(){
 
             <Button vertical
             active={this.isActive(1)}
-            onPress={() => this.activate("School")}>
+            onPress={() => this.activate("Locations")}>
               <Icon 
               active={this.isActive(1)}
               name="book" />
-              <Text>School</Text>
+              <Text>Around Me</Text>
             </Button>
 
             <Button 

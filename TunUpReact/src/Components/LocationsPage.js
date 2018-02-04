@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {Container, Header, Left, Button, Icon, Body, Title, Right, Content, Footer, FooterTab,Badge} from 'native-base';
-export  class HomePage extends React.Component {
-
+export  class LocationsPage extends React.Component {
   render() {
     const {goBack} = this.props.navigation;  
     return (
@@ -16,11 +15,10 @@ export  class HomePage extends React.Component {
           </Left>  
 
           <Body>
-            <Title>Scooby</Title>
+            <Title>Around Me</Title>
           </Body>
           <Right>
-            <Button transparent
-            onPress={() => this.props.navigation.navigate('Locations')}>
+            <Button transparent>
               <Icon name='menu' />
             </Button>
           </Right>
