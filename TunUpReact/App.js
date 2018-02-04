@@ -3,13 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import { BottomTab } from './src/Components/BottomTab';
 import { TabNavigator } from 'react-navigation';
 import { HomePage } from './src/Components/HomePage';
+import { LocationsPage } from './src/Components/LocationsPage';
 export default (MainScreenNavigator = TabNavigator(
   {
     Home: {
       screen: HomePage 
     },
-    School: {
-      screen: HomePage 
+    Locations: {
+      screen: LocationsPage 
     },
   },
   {
